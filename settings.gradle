@@ -1,1 +1,2 @@
 include ':arduinoController'
+include ':app'
