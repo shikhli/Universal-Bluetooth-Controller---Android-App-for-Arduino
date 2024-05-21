@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "zakirshikhli.ble_app.arduinoController-mergeDebugResources-29:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Asus\\.gradle\\caches\\transforms-4\\3a52fc88fec563a0a9cd7846aa8c3a80\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    }
+                }
+            ]
+        }
+    ]
+}

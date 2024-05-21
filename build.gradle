@@ -1,0 +1,35 @@
+buildscript {
+    ext {
+        kotlin_version = '1.9.22'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.4.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9+'
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+compileKotlin {
+
+}

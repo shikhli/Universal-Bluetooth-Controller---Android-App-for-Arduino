@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "BUNDLE",
+    "kind": "RegularFile"
+  },
+  "applicationId": "zakirshikhli.ble_app",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "outputFile": "../../../../../../../_BUILDS_/release/arduinoController-release.aab"
+    }
+  ],
+  "elementType": "File"
+}

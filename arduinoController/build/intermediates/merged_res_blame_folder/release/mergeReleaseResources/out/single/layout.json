@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-mergeReleaseResources-30:\\layout\\page_controller_fragment.xml",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-main-32:\\layout\\page_controller_fragment.xml"
+    },
+    {
+        "merged": "zakirshikhli.ble_app.arduinoController-mergeReleaseResources-30:/layout/page_controller_fragment.xml",
+        "source": "zakirshikhli.ble_app.arduinoController-main-32:/layout/page_controller_fragment.xml"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-mergeReleaseResources-30:\\layout\\page_main_activity.xml",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-main-32:\\layout\\page_main_activity.xml"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-mergeReleaseResources-30:\\layout\\page_devices_fragment.xml",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-main-32:\\layout\\page_devices_fragment.xml"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-mergeReleaseResources-30:\\layout\\device_list_linlyt.xml",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.4\\zakirshikhli.ble_app.arduinoController-main-32:\\layout\\device_list_linlyt.xml"
+    },
+    {
+        "merged": "zakirshikhli.ble_app.arduinoController-mergeReleaseResources-30:/layout/page_main_activity.xml",
+        "source": "zakirshikhli.ble_app.arduinoController-main-32:/layout/page_main_activity.xml"
+    }
+]

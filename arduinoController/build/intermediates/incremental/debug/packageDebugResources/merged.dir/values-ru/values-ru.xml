@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Универсальный Bluetooth Контроллер</string>
+    <string name="app_name_short">УБК</string>
+    <string name="aze">Azərbaycanca</string>
+    <string name="bluetooth_classic_label"><b><font color="#1EA4FF">Классический Bluetooth</font></b>\n(HC-05, HC-06 и др.)</string>
+    <string name="bluetooth_is_disabled">- Bluetooth выключен -</string>
+    <string name="bluetooth_le_label"><b><font color="#B4CF18">Bluetooth Low Energy (BLE)</font></b>\n(HM-10 и др.)</string>
+    <string name="bluetooth_le_not_supported">- Bluetooth LE не поддерживается -</string>
+    <string name="bluetooth_permission_denied">Bluetooth разрешение была отказано навсегда. Для восстанавления разрешения нужно зайти в свойства приложения.</string>
+    <string name="bluetooth_permission_grant">Приложению требуется разрешение Bluetooth. Предоставьте его в следующем диалоге.</string>
+    <string name="bluetooth_permission_title">Разрешение Bluetooth</string>
+    <string name="bluetooth_settings">Настройки Bluetooth</string>
+    <string name="cannot_connect_to_pd">Не удалось подключиться к сопряжённому устройству.</string>
+    <string name="close">ЗАКРЫТЬ</string>
+    <string name="confirm">ПОДТВЕРДИТЬ</string>
+    <string name="conn_lost">Соединение потеряно:</string>
+    <string name="conn_status">"Подключён к:   "</string>
+    <string name="connected_toast">Успешное подключение</string>
+    <string name="eng">English</string>
+    <string name="failed_to_connect_to_the_device">Не удалось подключиться:</string>
+    <string name="filterNamesLabel">Показать только HM и HC</string>
+    <string name="helpButtonLabel">Помощь</string>
+    <string name="helpText">1) Сначало, советуем прочесть описание приложения в <font color="#39CFC1">Google Play</font>:
+        \nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app
+        \n\n2) После каждого обновления приложения, убедитесь что на вашем Ардуино устройсте последняя версия <font color="#39CFC1">кода для Ардуино</font>:
+        \nhttps://github.com/shikhli/Arduino-Bluetooth-car-remote
+        \n\n3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. (Данное приложение не использует и не собирает никакие данные о местоположении)
+        \n\n4) <font color="#39CFC1">Bluetooth Classic</font>:  Сначала подключитесь к устройству из системного меню Bluetooth, затем войдите в приложение.</string>
+    <string name="initializing">Подготовливается…</string>
+    <string name="lang_title">Язык приложения</string>
+    <string name="le_devices">Устройства BLE</string>
+    <string name="led">LED\nПанель</string>
+    <string name="location_permission_denied">Поскольку разрешение на определение местоположения не предоставлено, это приложение не может выполнять поиск устройств Bluetooth LE.</string>
+    <string name="location_permission_grant">Это приложение не использует информацию о местоположении, но для сканирования устройств Bluetooth LE требуется это разрешение. Пожалуйста, предоставьте разрешение в следующем диалоге.</string>
+    <string name="location_permission_title">Разрешение местоположения</string>
+    <string name="location_settings">Настройки Местоположения</string>
+    <string name="max_speed">Полная\nСкорость</string>
+    <string name="no_bluetooth_devices_found">- Устройство Bluetooth не найдено -</string>
+    <string name="not_connected">Подключение отсутствует</string>
+    <string name="pairing_request">Запрошено СОПРЯЖЕНИЕ\\n\n-> Выполните действия по сопряжению. Подключитесь снова</string>
+    <string name="please_enable_bluetooth">Включите Bluetooth</string>
+    <string name="quitToast">Для выхода нажмите НАЗАД ещё один раз</string>
+    <string name="restart">Перезапуск</string>
+    <string name="reverse_button_label">Реверс</string>
+    <string name="rus">Русский</string>
+    <string name="scan">ИСКАТЬ</string>
+    <string name="scanning">- Идет поиск… -</string>
+    <string name="share_message">Скачать приложение \"Универсальный Bluetooth Контроллер\" в Google Play:\n\nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app</string>
+    <string name="share_via">Поделится через</string>
+    <string name="stop">ОСТАНОВИТЬ</string>
+    <string name="tankMode">Режим\nТанка</string>
+    <string name="unnamed">- Безымянное устройство -</string>
+    <string name="use_scan_to_refresh_devices">- Нажмите ИСКАТЬ -</string>
+    <string name="ver_info">"Версия приложения:   "</string>
+    <string name="waitText">Подождите…</string>
+</resources>

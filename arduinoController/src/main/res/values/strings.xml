@@ -1,0 +1,70 @@
+<resources>
+
+    <string name="app_name_short">UBC</string>
+    <string name="app_name">Universal Bluetooth Controller</string>
+
+    <!--    UI Elements    -->
+    <string name="bluetooth_le_label"><b><font color= '#B4CF18'>Bluetooth Low Energy (BLE)</font></b>\n(HM-10 etc.)</string>
+    <string name="bluetooth_classic_label"><b><font color= '#1EA4FF'>Bluetooth Classic</font></b>\n(HC-05, HC-06 etc.)</string>
+    <string name="quitToast">Click BACK again to Exit</string>
+    <string name="le_devices">BLE Devices</string>
+    <string name="led">LED\nBoard</string>
+    <string name="tankMode">Tank\nMode</string>
+    <string name="max_speed">Full\nSpeed</string>
+    <string name="helpButtonLabel">Help</string>
+    <string name="scan">SCAN</string>
+    <string name="stop">STOP</string>
+    <string name="bluetooth_settings">Bluetooth Settings</string>
+    <string name="location_settings">Location Settings</string>
+    <string name="filterNamesLabel">Show only HM and HC</string>
+
+    <!--    FOR PERMISSIONS    -->
+    <string name="bluetooth_permission_title">Bluetooth permission</string>
+    <string name="bluetooth_permission_grant">Bluetooth permission is required by this App. Please grant in next dialog.</string>
+    <string name="bluetooth_permission_denied">Bluetooth permission was permanently denied. You have to enable permission \"%s\" in App settings.</string>
+    <string name="location_permission_title">Location permission</string>
+    <string name="location_permission_grant">This app does not use location information, but scanning for Bluetooth LE devices requires this permission. Please grant in next dialog.</string>
+    <string name="location_permission_denied">As location permission has not been granted, this app cannot scan for Bluetooth LE devices.</string>
+    <string name="pairing_request">PAIRING requested\n-> Perform pairing steps. Connect again</string>
+
+    <!--    LONG TEXTs    -->
+    <string name="helpText">1) First, we recommend to read description of this app in <font color= '#39CFC1'>Google Play</font>:
+        \nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app
+        \n\n2) Be sure You uploaded the latest version of <font color= '#39CFC1'>Arduino Code</font> to your Arduino device after every app update:
+        \nhttps://github.com/shikhli/Arduino-Bluetooth-car-remote
+        \n\n3) <font color= '#39CFC1'>Bluetooth Low Energy (BLE)</font>:  To connect to BLE type Bluetooth devices, your Android device must have both Bluetooth and Location enabled. (This app does not use or collect any geolocation data)
+        \n\n4) <font color= '#39CFC1'>Bluetooth Classic</font>:  First, pair with a device from the system Bluetooth menu, then enter the application.</string>
+
+    <!--    Connection statuses    -->
+    <string name="conn_status">"Connected to:   "</string>
+    <string name="connected_toast">Successful connection</string>
+    <string name="failed_to_connect_to_the_device">"Could not connect: "</string>
+    <string name="conn_lost">"Connection lost: "</string>
+    <string name="please_enable_bluetooth">Enable Bluetooth</string>
+    <string name="cannot_connect_to_pd">Cannot connect to paired device</string>
+    <string name="not_connected">No connection</string>
+
+    <!--    Misc texts    -->
+    <string name="waitText">Please wait…</string>
+    <string name="bluetooth_is_disabled">- Bluetooth is OFF -</string>
+    <string name="bluetooth_le_not_supported">- Bluetooth LE not supported -</string>
+    <string name="use_scan_to_refresh_devices">- Press SCAN -</string>
+    <string name="scanning">- Searching… -</string>
+    <string name="no_bluetooth_devices_found">- No Bluetooth device found -</string>
+    <string name="unnamed">- Unnamed device -</string>
+    <string name="initializing">Getting ready…</string>
+    <string name="reverse_button_label">Reverse</string>
+    <string name="ver_info">"App version:   "</string>
+    <string name="restart">Restart</string>
+    <string name="close">CLOSE</string>
+    <string name="lang_title">Language</string>
+    <string name="aze">Azərbaycanca</string>
+    <string name="eng">English</string>
+    <string name="rus">Русский</string>
+    <string name="confirm">CONFIRM</string>
+
+    <!--    Sharing    -->
+    <string name="share_message">Get \"Universal Bluetooth Controller\" app on Google Play:\n\nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app</string>
+    <string name="share_via">Share via</string>
+
+</resources>

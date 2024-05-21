@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:statusBarColor">@color/backgroundDark</item>
+        <item name="colorPrimary">#32A69B</item>
+        <item name="colorPrimaryDark">#1A4744</item>
+        <item name="colorAccent">@color/accentColor</item>
+
+        <item name="colorOnBackground">#39CFC1</item>
+        <item name="backgroundColor">#323232</item>
+        <item name="background">@color/backgroundDark</item>
+        <item name="backgroundStacked">#373737</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="CustomTextStyle">
+        <item name="android:fontFamily">@font/comfortaa_font_resource</item>
+    </style>
+</resources>
