@@ -8,6 +8,5 @@
         android:visible="false" />
     <item
         android:id="@+id/bt_settings"
-        android:title="BT settings"
-        app:showAsAction="ifRoom" />
+        android:title="Bluetooth settings" />
 </menu>

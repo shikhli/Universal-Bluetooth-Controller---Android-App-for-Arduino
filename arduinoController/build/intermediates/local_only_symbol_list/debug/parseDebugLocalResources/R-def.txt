@@ -38,6 +38,7 @@ font comfortaa_font
 font comfortaa_font_resource
 id appBarLayout
 id app_info
+id backgroundNotification
 id ble_scan
 id ble_scan_stop
 id bt_refresh
@@ -57,6 +58,7 @@ id helpPanel
 id helpPanelLabel
 id helpText
 id help_button
+id hex
 id high_speed_switch
 id indicator_con
 id joysticksNormal
@@ -65,6 +67,7 @@ id lang_button
 id led_switch
 id loc_settings
 id mainMenuContainer
+id newline
 id quitButton
 id receive_text
 id restartButton
@@ -81,14 +84,13 @@ id text1
 id text2
 id title_image
 id toolbar
-layout activity_classic
+layout activity_main
+layout device_list_ble
 layout device_list_header_classic
 layout device_list_item_classic
-layout device_list_linlyt
-layout fragment_terminal_classic
-layout page_controller_fragment
-layout page_devices_fragment
-layout page_main_activity
+layout fragment_ble_devices
+layout fragment_classic_terminal
+layout fragment_controller
 menu menu_devices
 menu menu_devices_ble
 menu menu_terminal

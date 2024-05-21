@@ -1,6 +1,6 @@
 package zakirshikhli.ble_app.classic;
 
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -17,9 +17,7 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 
-import zakirshikhli.ble_app.BuildConfig;
-
-public class SerialSocket implements Runnable {
+class SerialSocket implements Runnable {
 
     private static final UUID BLUETOOTH_SPP = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
@@ -46,7 +44,6 @@ public class SerialSocket implements Runnable {
         };
     }
 
-    @SuppressLint("MissingPermission")
     String getName() {
         return device.getName() != null ? device.getName() : device.getAddress();
     }
@@ -54,15 +51,15 @@ public class SerialSocket implements Runnable {
     /**
      * connect-success and most connect-errors are returned asynchronously to listener
      */
-    static final String INTENT_ACTION_DISCONNECT = BuildConfig.APPLICATION_ID + ".Disconnect";
-    void connect(SerialListener listener) {
+    void connect(SerialListener listener) throws IOException {
         this.listener = listener;
-        ContextCompat.registerReceiver(context, disconnectBroadcastReceiver, new IntentFilter(INTENT_ACTION_DISCONNECT), ContextCompat.RECEIVER_NOT_EXPORTED);
+        ContextCompat.registerReceiver(context, disconnectBroadcastReceiver, new IntentFilter(Constants.INTENT_ACTION_DISCONNECT), ContextCompat.RECEIVER_NOT_EXPORTED);
         Executors.newSingleThreadExecutor().submit(this);
     }
 
     void disconnect() {
         listener = null; // ignore remaining data and errors
+        // connected = false; // run loop will reset connected
         if(socket != null) {
             try {
                 socket.close();
@@ -82,7 +79,6 @@ public class SerialSocket implements Runnable {
         socket.getOutputStream().write(data);
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void run() { // connect & read
         try {

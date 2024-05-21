@@ -1,8 +1,9 @@
 package zakirshikhli.ble_app.classic;
 
+
 import java.util.ArrayDeque;
 
-public interface SerialListener {
+interface SerialListener {
     void onSerialConnect      ();
     void onSerialConnectError (Exception e);
     void onSerialRead         (byte[] data);                // socket -> service

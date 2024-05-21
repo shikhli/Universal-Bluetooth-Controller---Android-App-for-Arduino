@@ -1,17 +1,21 @@
 package zakirshikhli.ble_app.classic;
 
+import android.app.Service;
+import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
-
+import androidx.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayDeque;
+
 
 /**
  * create notification and queue serial data while activity is not in the foreground
  * use listener chain: SerialSocket -> SerialService -> UI fragment
  */
-public class SerialService implements SerialListener {
+public class SerialService extends Service implements SerialListener {
 
     class SerialBinder extends Binder {
         SerialService getService() { return SerialService.this; }
@@ -33,6 +37,7 @@ public class SerialService implements SerialListener {
     }
 
     private final Handler mainLooper;
+    private final IBinder binder;
     private final ArrayDeque<QueueItem> queue1, queue2;
     private final QueueItem lastRead;
 
@@ -45,11 +50,23 @@ public class SerialService implements SerialListener {
      */
     public SerialService() {
         mainLooper = new Handler(Looper.getMainLooper());
+        binder = new SerialBinder();
         queue1 = new ArrayDeque<>();
         queue2 = new ArrayDeque<>();
         lastRead = new QueueItem(QueueType.Read);
     }
 
+    @Override
+    public void onDestroy() {
+        disconnect();
+        super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
 
     /**
      * Api
@@ -107,6 +124,7 @@ public class SerialService implements SerialListener {
     }
 
 
+
     /**
      * SerialListener
      */
@@ -154,6 +172,7 @@ public class SerialService implements SerialListener {
      * reduce number of UI updates by merging data chunks.
      * Data can arrive at hundred chunks per second, but the UI can only
      * perform a dozen updates if receiveText already contains much text.
+     *
      * On new data inform UI thread once (1).
      * While not consumed (2), add more data (3).
      */

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <!-- <= 30 + Xiaomi/MIUI -->
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="32"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
@@ -14,6 +15,7 @@
         android:usesPermissionFlags="neverForLocation" tools:targetApi="s" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
 
     <uses-feature
         android:name="android.hardware.bluetooth"
@@ -30,7 +32,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:screenOrientation="sensorLandscape"
-            android:name=".PageMainActivity"
+            android:name=".ActivityMain"
             android:resizeableActivity="true"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="true"
@@ -40,8 +42,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:name=".BLEserialService"
+            android:name=".ble.BLEserialService"
+            android:foregroundServiceType="remoteMessaging|connectedDevice" />
+
+        <service
+            android:name=".classic.SerialService"
             android:foregroundServiceType="remoteMessaging|connectedDevice" />
     </application>
 
