@@ -1,14 +1,8 @@
 package zakirshikhli.ble_app.classic;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -31,6 +25,7 @@ import java.util.ArrayDeque;
 
 import zakirshikhli.ble_app.R;
 
+/** @noinspection deprecation*/
 public class TerminalFragment extends Fragment implements SerialListener {
 
     private enum Connected { False, Pending, True }
@@ -43,7 +38,6 @@ public class TerminalFragment extends Fragment implements SerialListener {
     private Connected connected = Connected.False;
     private boolean initialStart = true;
     private boolean pendingNewline = false;
-    private final String newline = TextUtil.newline_crlf;
 
     /*
      * Lifecycle
@@ -53,6 +47,7 @@ public class TerminalFragment extends Fragment implements SerialListener {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        assert getArguments() != null;
         deviceAddress = getArguments().getString("device");
     }
 
@@ -63,7 +58,7 @@ public class TerminalFragment extends Fragment implements SerialListener {
         super.onResume();
         if(initialStart) {
             initialStart = false;
-            getActivity().runOnUiThread(this::connect);
+            requireActivity().runOnUiThread(this::connect);
         }
     }
 
@@ -72,7 +67,7 @@ public class TerminalFragment extends Fragment implements SerialListener {
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_terminal_classic, container, false);
+        View view = inflater.inflate(R.layout.classic_fragment_terminal, container, false);
         receiveText = view.findViewById(R.id.receive_text);                          // TextView performance decreases with number of spans
         receiveText.setTextColor(getResources().getColor(R.color.colorRecieveText)); // set as default color to reduce number of spans
         receiveText.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -111,7 +106,7 @@ public class TerminalFragment extends Fragment implements SerialListener {
             BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
             status("connecting...");
             connected = Connected.Pending;
-            SerialSocket socket = new SerialSocket(getActivity().getApplicationContext(), device);
+            SerialSocket socket = new SerialSocket(requireActivity().getApplicationContext(), device);
         } catch (Exception e) {
             onSerialConnectError(e);
         }
@@ -127,6 +122,7 @@ public class TerminalFragment extends Fragment implements SerialListener {
             String msg;
             byte[] data;
             msg = str;
+            String newline = TextUtil.newline_crlf;
             data = (str + newline).getBytes();
             SpannableStringBuilder spn = new SpannableStringBuilder(msg + '\n');
             spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorSendText)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

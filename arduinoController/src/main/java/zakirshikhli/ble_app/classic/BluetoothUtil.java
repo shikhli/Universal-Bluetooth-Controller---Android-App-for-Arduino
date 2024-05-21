@@ -52,7 +52,7 @@ public class BluetoothUtil {
     }
 
     private static void showSettingsDialog(Fragment fragment) {
-        @SuppressLint("DiscouragedApi") String s = fragment.getResources().getString(fragment.getResources().getIdentifier("@android:string/permgrouplab_nearby_devices", null, null));
+        String s = fragment.getResources().getString(fragment.getResources().getIdentifier("@android:string/permgrouplab_nearby_devices", null, null));
         final AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getActivity());
         builder.setTitle(fragment.getString(R.string.bluetooth_permission_title));
         builder.setMessage(fragment.getString(R.string.bluetooth_permission_denied));

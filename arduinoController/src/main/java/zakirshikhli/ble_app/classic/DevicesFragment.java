@@ -49,7 +49,7 @@ public class DevicesFragment extends ListFragment {
             public View getView(int position, View view, @NonNull ViewGroup parent) {
                 BluetoothDevice device = listItems.get(position);
                 if (view == null)
-                    view = requireActivity().getLayoutInflater().inflate(R.layout.device_list_item_classic, parent, false);
+                    view = requireActivity().getLayoutInflater().inflate(R.layout.classic_device_list_item, parent, false);
                 TextView text1 = view.findViewById(R.id.text1);
                 TextView text2 = view.findViewById(R.id.text2);
                 @SuppressLint("MissingPermission") String deviceName = device.getName();
@@ -67,7 +67,7 @@ public class DevicesFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setListAdapter(null);
-        @SuppressLint("InflateParams") View header = requireActivity().getLayoutInflater().inflate(R.layout.device_list_header_classic, null, false);
+        @SuppressLint("InflateParams") View header = requireActivity().getLayoutInflater().inflate(R.layout.classic_device_list_header, null, false);
         getListView().addHeaderView(header, null, false);
         setEmptyText("initializing...");
         ((TextView) getListView().getEmptyView()).setTextSize(18);

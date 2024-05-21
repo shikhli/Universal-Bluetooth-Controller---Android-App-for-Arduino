@@ -319,9 +319,6 @@ class PageControllerFragment : Fragment(), ServiceConnection, BLEserialListener 
 
         if (service != null) {
             service!!.attach(this)
-            if (!service!!.areNotificationsEnabled() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
-            }
         } else requireActivity().startService(
             Intent(
                 activity,
@@ -369,7 +366,6 @@ class PageControllerFragment : Fragment(), ServiceConnection, BLEserialListener 
     }
 
     override fun onServiceConnected(name: ComponentName, binder: IBinder) {
-
         if (btIsClassic) return
 
         service = (binder as SerialBinder).service

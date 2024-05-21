@@ -1,7 +1,5 @@
 package zakirshikhli.ble_app
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.os.Binder
@@ -103,7 +101,6 @@ class BLEserialService : Service(), BLEserialListener {
 
     fun disconnect() {
         connected = false // ignore data,errors while disconnecting
-        //cancelNotification()
         if (socket != null) {
             socket!!.disconnect()
             socket = null
@@ -118,10 +115,6 @@ class BLEserialService : Service(), BLEserialListener {
 
     fun attach(listener: BLEserialListener) {
         require(Looper.getMainLooper().thread === Thread.currentThread()) { "not in main thread" }
-        initNotification()
-        //cancelNotification()
-        // use synchronized() to prevent new items in queue2
-        // new items will not be added to queue1 because mainLooper.post and attach() run in main thread
         synchronized(this) { this.listener = listener }
         for (item in queue1) {
             when (item.type) {
@@ -142,29 +135,6 @@ class BLEserialService : Service(), BLEserialListener {
         queue1.clear()
         queue2.clear()
     }
-
-  /*  fun detach() {
-        if (connected)
-        listener = null
-    }*/
-
-    private fun initNotification() {
-        val nc = NotificationChannel(
-            BLEconstants.NOTIFICATION_CHANNEL,
-            "Background service",
-            NotificationManager.IMPORTANCE_LOW
-        )
-        nc.setShowBadge(false)
-        val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        nm.createNotificationChannel(nc)
-    }
-
-    fun areNotificationsEnabled(): Boolean {
-        val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val nc = nm.getNotificationChannel(BLEconstants.NOTIFICATION_CHANNEL)
-        return nm.areNotificationsEnabled() && nc != null && nc.importance > NotificationManager.IMPORTANCE_NONE
-    }
-
 
 
 
