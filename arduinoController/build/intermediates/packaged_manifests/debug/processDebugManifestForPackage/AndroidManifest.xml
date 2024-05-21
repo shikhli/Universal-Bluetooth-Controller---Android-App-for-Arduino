@@ -43,7 +43,6 @@
         android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name_short"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="zakirshikhli.ble_app.PageMainActivity"

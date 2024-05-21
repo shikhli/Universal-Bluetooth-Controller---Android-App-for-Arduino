@@ -1,138 +1,166 @@
 [
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\layout_device_list_linlyt.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\layout\\device_list_linlyt.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_ic_email.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/ic_email.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\layout_page_devices_fragment.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\layout\\page_devices_fragment.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_page_main_activity.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/page_main_activity.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_joysticks_style.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\joysticks_style.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_page_controller_fragment.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/page_controller_fragment.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_device_list_linlyt.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/device_list_linlyt.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_rounded_rectangle_button.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\rounded_rectangle_button.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_indicator_red.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/indicator_red.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\layout_page_controller_fragment.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\layout\\page_controller_fragment.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable-az_title.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable-az/title.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_bg_src.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\bg_src.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_ic_language.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/ic_language.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\font_comfortaa_font_resource.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\font\\comfortaa_font_resource.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_fragment_terminal_classic.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/fragment_terminal_classic.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable-ru_title.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable-ru/title.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_ic_exit.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\ic_exit.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_joystick_thumb_normal.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\joystick_thumb_normal.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_indicator_green.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/indicator_green.webp"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/menu_menu_terminal.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-33:/menu/menu_terminal.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_joystick_thumb_style_normal.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/joystick_thumb_style_normal.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_indicator_red.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\indicator_red.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_bg_src.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/bg_src.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\layout_page_main_activity.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\layout\\page_main_activity.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_ic_exit.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/ic_exit.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_rounded_rectangle_text.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\rounded_rectangle_text.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_joystick_thumb_style_tank.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/joystick_thumb_style_tank.xml"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_device_list_header_classic.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/device_list_header_classic.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_ic_restart.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/ic_restart.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_joystick_thumb_tank.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\joystick_thumb_tank.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/font_comfortaa_font_resource.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/font/comfortaa_font_resource.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_ic_share_black.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\ic_share_black.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/mipmap-xhdpi/ic_launcher_foreground.webp"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_device_list_item_classic.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/device_list_item_classic.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_rounded_rectangle_dark.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/rounded_rectangle_dark.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable-ru_title.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable-ru\\title.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_page_devices_fragment.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/page_devices_fragment.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable-az_title.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable-az\\title.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_title.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/title.webp"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/menu_menu_devices_ble.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-33:/menu/menu_devices_ble.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_joysticks_style.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/joysticks_style.xml"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/layout_activity_classic.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-33:/layout/activity_classic.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_rounded_rectangle_button.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/rounded_rectangle_button.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\mipmap-xxxhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_bg_repeat.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/bg_repeat.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\mipmap-xxhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_joystick_thumb_tank.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/joystick_thumb_tank.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_ic_email.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\ic_email.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_joystick_thumb_normal.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/joystick_thumb_normal.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_bg_repeat.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\bg_repeat.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_ic_share_black.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/ic_share_black.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\mipmap-xhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/mipmap-hdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\mipmap-hdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/mipmap-mdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_rounded_rectangle_dark.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\rounded_rectangle_dark.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_ic_help.webp.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/ic_help.webp"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_title.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\title.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/drawable_rounded_rectangle_text.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/drawable/rounded_rectangle_text.xml"
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_ic_language.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\ic_language.webp"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_joystick_thumb_style_normal.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\joystick_thumb_style_normal.xml"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_ic_help.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\ic_help.webp"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\font_comfortaa_font.ttf.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\font\\comfortaa_font.ttf"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\mipmap-mdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_joystick_thumb_style_tank.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\joystick_thumb_style_tank.xml"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_ic_restart.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\ic_restart.webp"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\drawable_indicator_green.webp.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\drawable\\indicator_green.webp"
+    },
+    {
+        "merged": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-debug-31:\\menu_menu_devices.xml.flat",
+        "source": "C:\\Users\\Asus\\.gradle\\daemon\\8.6\\zakirshikhli.ble_app.arduinoController-main-33:\\menu\\menu_devices.xml"
     },
     {
         "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/menu_menu_devices.xml.flat",
         "source": "zakirshikhli.ble_app.arduinoController-main-33:/menu/menu_devices.xml"
-    },
-    {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-31:/font_comfortaa_font.ttf.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-33:/font/comfortaa_font.ttf"
     }
 ]
