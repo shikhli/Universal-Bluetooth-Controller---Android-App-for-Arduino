@@ -1,154 +1,174 @@
-package de.kai_morich.simple_bluetooth_terminal;
+package zakirshikhli.ble_app.classic
 
-import android.os.Binder;
-import android.os.Handler;
-import android.os.Looper;
-
-import java.io.IOException;
-import java.util.ArrayDeque;
+import android.os.Binder
+import android.os.Handler
+import android.os.Looper
+import zakirshikhli.ble_app.classic.SerialListener
+import zakirshikhli.ble_app.classic.SerialSocket
+import java.io.IOException
+import java.util.ArrayDeque
 
 /**
  * create notification and queue serial data while activity is not in the foreground
  * use listener chain: SerialSocket -> SerialService -> UI fragment
  */
-public class SerialService implements SerialListener {
-
-    class SerialBinder extends Binder {
-        SerialService getService() { return SerialService.this; }
+class SerialService : SerialListener {
+    internal inner class SerialBinder : Binder() {
+        val service: SerialService
+            get() = this@SerialService
     }
 
-    private enum QueueType {Connect, ConnectError, Read, IoError}
-
-    private static class QueueItem {
-        QueueType type;
-        ArrayDeque<byte[]> datas;
-        Exception e;
-
-        QueueItem(QueueType type) { this.type=type; if(type==QueueType.Read) init(); }
-        QueueItem(QueueType type, Exception e) { this.type=type; this.e=e; }
-        QueueItem(QueueType type, ArrayDeque<byte[]> datas) { this.type=type; this.datas=datas; }
-
-        void init() { datas = new ArrayDeque<>(); }
-        void add(byte[] data) { datas.add(data); }
+    private enum class QueueType {
+        Connect, ConnectError, Read, IoError
     }
 
-    private final Handler mainLooper;
-    private final ArrayDeque<QueueItem> queue1, queue2;
-    private final QueueItem lastRead;
+    private class QueueItem {
+        var type: QueueType
+        var datas: ArrayDeque<ByteArray>? = null
+        var e: Exception? = null
 
-    private SerialSocket socket;
-    private SerialListener listener;
-    private boolean connected;
+        constructor(type: QueueType) {
+            this.type = type
+            if (type == QueueType.Read) init()
+        }
 
-    /**
-     * Lifecylce
-     */
-    public SerialService() {
-        mainLooper = new Handler(Looper.getMainLooper());
-        queue1 = new ArrayDeque<>();
-        queue2 = new ArrayDeque<>();
-        lastRead = new QueueItem(QueueType.Read);
+        constructor(type: QueueType, e: Exception?) {
+            this.type = type
+            this.e = e
+        }
+
+        constructor(type: QueueType, datas: ArrayDeque<ByteArray>?) {
+            this.type = type
+            this.datas = datas
+        }
+
+        fun init() {
+            datas = ArrayDeque()
+        }
+
+        fun add(data: ByteArray) {
+            datas!!.add(data)
+        }
     }
+
+    private val mainLooper = Handler(Looper.getMainLooper())
+    private val queue1 = ArrayDeque<QueueItem>()
+    private val queue2 = ArrayDeque<QueueItem>()
+    private val lastRead = QueueItem(QueueType.Read)
+
+    private var socket: SerialSocket? = null
+    private var listener: SerialListener? = null
+    private var connected = false
 
 
     /**
      * Api
      */
-    public void connect(SerialSocket socket) throws IOException {
-        socket.connect(this);
-        this.socket = socket;
-        connected = true;
+    @Throws(IOException::class)
+    fun connect(socket: SerialSocket) {
+        socket.connect(this)
+        this.socket = socket
+        connected = true
     }
 
-    public void disconnect() {
-        connected = false; // ignore data,errors while disconnecting
-        if(socket != null) {
-            socket.disconnect();
-            socket = null;
+    fun disconnect() {
+        connected = false // ignore data,errors while disconnecting
+        if (socket != null) {
+            socket!!.disconnect()
+            socket = null
         }
     }
 
-    public void write(byte[] data) throws IOException {
-        if(!connected)
-            throw new IOException("not connected");
-        socket.write(data);
+    @Throws(IOException::class)
+    fun write(data: ByteArray?) {
+        if (!connected) throw IOException("not connected")
+        socket!!.write(data)
     }
 
-    public void attach(SerialListener listener) {
-        if(Looper.getMainLooper().getThread() != Thread.currentThread())
-            throw new IllegalArgumentException("not in main thread");
+    fun attach(listener: SerialListener) {
+        require(Looper.getMainLooper().thread === Thread.currentThread()) { "not in main thread" }
         // use synchronized() to prevent new items in queue2
         // new items will not be added to queue1 because mainLooper.post and attach() run in main thread
-        synchronized (this) {
-            this.listener = listener;
+        synchronized(this) {
+            this.listener = listener
         }
-        for(QueueItem item : queue1) {
-            switch(item.type) {
-                case Connect:       listener.onSerialConnect      (); break;
-                case ConnectError:  listener.onSerialConnectError (item.e); break;
-                case Read:          listener.onSerialRead         (item.datas); break;
-                case IoError:       listener.onSerialIoError      (item.e); break;
+        for (item in queue1) {
+            when (item.type) {
+                QueueType.Connect -> listener.onSerialConnect()
+                QueueType.ConnectError -> listener.onSerialConnectError(item.e)
+                QueueType.Read -> listener.onSerialRead(item.datas)
+                QueueType.IoError -> listener.onSerialIoError(item.e)
             }
         }
-        for(QueueItem item : queue2) {
-            switch(item.type) {
-                case Connect:       listener.onSerialConnect      (); break;
-                case ConnectError:  listener.onSerialConnectError (item.e); break;
-                case Read:          listener.onSerialRead         (item.datas); break;
-                case IoError:       listener.onSerialIoError      (item.e); break;
+        for (item in queue2) {
+            when (item.type) {
+                QueueType.Connect -> listener.onSerialConnect()
+                QueueType.ConnectError -> listener.onSerialConnectError(item.e)
+                QueueType.Read -> listener.onSerialRead(item.datas)
+                QueueType.IoError -> listener.onSerialIoError(item.e)
             }
         }
-        queue1.clear();
-        queue2.clear();
+        queue1.clear()
+        queue2.clear()
     }
 
-    public void detach() {
-        listener = null;
+    fun detach() {
+        listener = null
     }
 
 
     /**
      * SerialListener
      */
-    public void onSerialConnect() {
-        if(connected) {
-            synchronized (this) {
+    override fun onSerialConnect() {
+        if (connected) {
+            synchronized(this) {
                 if (listener != null) {
-                    mainLooper.post(() -> {
+                    mainLooper.post {
                         if (listener != null) {
-                            listener.onSerialConnect();
+                            listener!!.onSerialConnect()
                         } else {
-                            queue1.add(new QueueItem(QueueType.Connect));
+                            queue1.add(QueueItem(QueueType.Connect))
                         }
-                    });
+                    }
                 } else {
-                    queue2.add(new QueueItem(QueueType.Connect));
+                    queue2.add(QueueItem(QueueType.Connect))
                 }
             }
         }
     }
 
-    public void onSerialConnectError(Exception e) {
-        if(connected) {
-            synchronized (this) {
+    override fun onSerialConnectError(e: Exception?) {
+        if (connected) {
+            synchronized(this) {
                 if (listener != null) {
-                    mainLooper.post(() -> {
+                    mainLooper.post {
                         if (listener != null) {
-                            listener.onSerialConnectError(e);
+                            listener!!.onSerialConnectError(e)
                         } else {
-                            queue1.add(new QueueItem(QueueType.ConnectError, e));
-                            disconnect();
+                            queue1.add(QueueItem(QueueType.ConnectError, e))
+                            disconnect()
                         }
-                    });
+                    }
                 } else {
-                    queue2.add(new QueueItem(QueueType.ConnectError, e));
-                    disconnect();
+                    queue2.add(QueueItem(QueueType.ConnectError, e))
+                    disconnect()
                 }
             }
         }
     }
 
-    public void onSerialRead(ArrayDeque<byte[]> datas) { throw new UnsupportedOperationException(); }
+    override fun onSerialRead(data: ByteArray?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSerialRead(datas: ArrayDeque<ByteArray>?) {
+        TODO("Not yet implemented")
+    }
+
+    fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {
+        throw UnsupportedOperationException()
+    }
 
     /**
      * reduce number of UI updates by merging data chunks.
@@ -157,56 +177,58 @@ public class SerialService implements SerialListener {
      * On new data inform UI thread once (1).
      * While not consumed (2), add more data (3).
      */
-    public void onSerialRead(byte[] data) {
-        if(connected) {
-            synchronized (this) {
+    fun onSerialRead(data: ByteArray) {
+        if (connected) {
+            synchronized(this) {
                 if (listener != null) {
-                    boolean first;
-                    synchronized (lastRead) {
-                        first = lastRead.datas.isEmpty(); // (1)
-                        lastRead.add(data); // (3)
+                    var first: Boolean
+                    synchronized(lastRead) {
+                        first = lastRead.datas!!.isEmpty() // (1)
+                        lastRead.add(data) // (3)
                     }
-                    if(first) {
-                        mainLooper.post(() -> {
-                            ArrayDeque<byte[]> datas;
-                            synchronized (lastRead) {
-                                datas = lastRead.datas;
-                                lastRead.init(); // (2)
+                    if (first) {
+                        mainLooper.post {
+                            var datas: ArrayDeque<ByteArray>?
+                            synchronized(lastRead) {
+                                datas = lastRead.datas
+                                lastRead.init() // (2)
                             }
                             if (listener != null) {
-                                listener.onSerialRead(datas);
+                                listener!!.onSerialRead(datas)
                             } else {
-                                queue1.add(new QueueItem(QueueType.Read, datas));
+                                queue1.add(QueueItem(QueueType.Read, datas))
                             }
-                        });
+                        }
                     }
                 } else {
-                    if(queue2.isEmpty() || queue2.getLast().type != QueueType.Read)
-                        queue2.add(new QueueItem(QueueType.Read));
-                    queue2.getLast().add(data);
+                    if (queue2.isEmpty() || queue2.last.type != QueueType.Read) queue2.add(
+                        QueueItem(
+                            QueueType.Read
+                        )
+                    )
+                    queue2.last.add(data)
                 }
             }
         }
     }
 
-    public void onSerialIoError(Exception e) {
-        if(connected) {
-            synchronized (this) {
+    override fun onSerialIoError(e: Exception?) {
+        if (connected) {
+            synchronized(this) {
                 if (listener != null) {
-                    mainLooper.post(() -> {
+                    mainLooper.post {
                         if (listener != null) {
-                            listener.onSerialIoError(e);
+                            listener!!.onSerialIoError(e)
                         } else {
-                            queue1.add(new QueueItem(QueueType.IoError, e));
-                            disconnect();
+                            queue1.add(QueueItem(QueueType.IoError, e))
+                            disconnect()
                         }
-                    });
+                    }
                 } else {
-                    queue2.add(new QueueItem(QueueType.IoError, e));
-                    disconnect();
+                    queue2.add(QueueItem(QueueType.IoError, e))
+                    disconnect()
                 }
             }
         }
     }
-
 }

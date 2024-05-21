@@ -1,11 +1,11 @@
-package de.kai_morich.simple_bluetooth_terminal;
+package zakirshikhli.ble_app.classic
 
-import java.util.ArrayDeque;
+import java.util.ArrayDeque
 
-public interface SerialListener {
-    void onSerialConnect      ();
-    void onSerialConnectError (Exception e);
-    void onSerialRead         (byte[] data);                // socket -> service
-    void onSerialRead         (ArrayDeque<byte[]> datas);   // service -> UI thread
-    void onSerialIoError      (Exception e);
+interface SerialListener {
+    fun onSerialConnect()
+    fun onSerialConnectError(e: Exception?)
+    fun onSerialRead(data: ByteArray?) // socket -> service
+    fun onSerialRead(datas: ArrayDeque<ByteArray>?) // service -> UI thread
+    fun onSerialIoError(e: Exception?)
 }

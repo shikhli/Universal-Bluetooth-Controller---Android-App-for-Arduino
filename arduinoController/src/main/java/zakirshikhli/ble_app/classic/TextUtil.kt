@@ -1,41 +1,41 @@
-package de.kai_morich.simple_bluetooth_terminal;
+package zakirshikhli.ble_app.classic
 
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.BackgroundColorSpan;
-import androidx.annotation.ColorInt;
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.BackgroundColorSpan
+import androidx.annotation.ColorInt
 
-final class TextUtil {
-    @ColorInt static int caretBackground = 0xff666666;
+internal object TextUtil {
+    @ColorInt
+    var caretBackground: Int = -0x99999a
 
-    final static String newline_crlf = "\r\n";
-    final static String newline_lf = "\n";
+    const val newline_crlf: String = "\r\n"
+    const val newline_lf: String = "\n"
 
 
-    static CharSequence toCaretString(CharSequence s, boolean keepNewline) {
-        return toCaretString(s, keepNewline, s.length());
-    }
-
-    static CharSequence toCaretString(CharSequence s, boolean keepNewline, int length) {
-        boolean found = false;
-        for (int pos = 0; pos < length; pos++) {
-            if (s.charAt(pos) < 32 && (!keepNewline ||s.charAt(pos)!='\n')) {
-                found = true;
-                break;
+    @JvmOverloads
+    fun toCaretString(s: CharSequence, keepNewline: Boolean, length: Int = s.length): CharSequence {
+        var found = false
+        for (pos in 0 until length) {
+            if (s[pos].code < 32 && (!keepNewline || s[pos] != '\n')) {
+                found = true
+                break
             }
         }
-        if(!found)
-            return s;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        for(int pos=0; pos<length; pos++)
-            if (s.charAt(pos) < 32 && (!keepNewline ||s.charAt(pos)!='\n')) {
-                sb.append('^');
-                sb.append((char)(s.charAt(pos) + 64));
-                sb.setSpan(new BackgroundColorSpan(caretBackground), sb.length()-2, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else {
-                sb.append(s.charAt(pos));
-            }
-        return sb;
+        if (!found) return s
+        val sb = SpannableStringBuilder()
+        for (pos in 0 until length) if (s[pos].code < 32 && (!keepNewline || s[pos] != '\n')) {
+            sb.append('^')
+            sb.append((s[pos].code + 64).toChar())
+            sb.setSpan(
+                BackgroundColorSpan(caretBackground),
+                sb.length - 2,
+                sb.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        } else {
+            sb.append(s[pos])
+        }
+        return sb
     }
-
 }
