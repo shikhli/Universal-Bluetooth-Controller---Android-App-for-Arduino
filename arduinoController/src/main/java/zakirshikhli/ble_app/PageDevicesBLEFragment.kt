@@ -143,7 +143,7 @@ class PageDevicesBLEFragment : ListFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_devices, menu)
+        inflater.inflate(R.menu.menu_devices_ble, menu)
         this.menu = menu
         if (bluetoothAdapter == null) {
             menu.findItem(R.id.bt_settings).setEnabled(false)

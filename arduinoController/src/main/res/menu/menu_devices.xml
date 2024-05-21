@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-      <item
-        android:id="@+id/ble_scan"
-        android:title="@string/scan"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/ble_scan_stop"
-        android:title="@string/stop"
-        app:showAsAction="ifRoom"
+
+    <item android:id="@+id/bt_refresh"
+        android:title="REFRESH"
+        app:showAsAction="always"
         android:visible="false" />
     <item
-        android:id="@+id/filterNames"
-        android:title="@string/filterNamesLabel"
-        android:checkable="true"/>
-    <item
         android:id="@+id/bt_settings"
-        android:title="@string/bluetooth_settings" />
-    <item
-        android:id="@+id/loc_settings"
-        android:title="@string/location_settings" />
-
-
+        android:title="BT settings"
+        app:showAsAction="ifRoom" />
 </menu>
