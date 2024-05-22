@@ -110,8 +110,8 @@
 63-->D:\_DEV_\ArduinoController\arduinoController\src\main\AndroidManifest.xml:48:13-76
 64        <service
 64-->D:\_DEV_\ArduinoController\arduinoController\src\main\AndroidManifest.xml:50:9-52:79
-65            android:name="zakirshikhli.ble_app.classic.SerialService"
-65-->D:\_DEV_\ArduinoController\arduinoController\src\main\AndroidManifest.xml:51:13-50
+65            android:name="zakirshikhli.ble_app.classic.ClassicSerialService"
+65-->D:\_DEV_\ArduinoController\arduinoController\src\main\AndroidManifest.xml:51:13-57
 66            android:foregroundServiceType="remoteMessaging|connectedDevice" />
 66-->D:\_DEV_\ArduinoController\arduinoController\src\main\AndroidManifest.xml:52:13-76
 67

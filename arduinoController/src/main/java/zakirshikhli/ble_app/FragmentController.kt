@@ -1,20 +1,14 @@
 package zakirshikhli.ble_app
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothSocket
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,32 +18,25 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import zakirshikhli.ble_app.ble.BLEserialService.SerialBinder
 import zakirshikhli.ble_app.ActivityMain.Companion.btIsClassic
-import zakirshikhli.ble_app.ble.BLEserialListener
 import zakirshikhli.ble_app.ble.BLEserialService
 import zakirshikhli.ble_app.ble.BLEserialSocket
-import java.io.IOException
-import java.io.OutputStream
+import zakirshikhli.ble_app.classic.ClassicSerialService
+import zakirshikhli.ble_app.classic.ClassicSerialSocket
 import java.util.ArrayDeque
 
 
 @Suppress("DEPRECATION")
-class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
+class FragmentController : Fragment(), ServiceConnection, SerialListener {
 
-    companion object {
-        private const val PERMISSION_REQUEST_CODE = 1001
+    private enum class Connected {
+        False, Pending, True
     }
 
-
-    // COMMON
     private lateinit var bluetoothAdapter: BluetoothAdapter
     private var ledEnabledBool: Boolean = true
     private var dirReversedBool: Boolean = false
@@ -60,26 +47,17 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
     private lateinit var connStatus: AppCompatTextView
     private lateinit var mainActivity: View
 
-    //    private lateinit var sharedPref: SharedPreferences
     private lateinit var joysticksNormal: View
     private lateinit var joysticksTank: View
 
-
-    // CLASSIC
-    private lateinit var outputStream: OutputStream
-
-
-    // BLE
+    private lateinit var device: BluetoothDevice
     private var deviceAddress: String? = null
-    private var service: BLEserialService? = null
+
+    private var serviceBLE: BLEserialService? = null
+    private var serviceClassic: ClassicSerialService? = null
+
     private var connected = Connected.False
     private var initialStart = true
-
-    private enum class Connected {
-        False,
-        Pending,
-        True
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,272 +65,97 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
         setHasOptionsMenu(true)
         retainInstance = true
 
-        if (!btIsClassic) {
-            // is BLE
-            assert(arguments != null)
-            deviceAddress = requireArguments().getString("device")
-        }
-
+        deviceAddress = requireArguments().getString("device")
 
         dirReversedBool = false
         highSpeedBool = false
         tankModeBool = false
     }
 
-    private fun checkAndRequestPermissions() {
-        val requiredPermissions = mutableListOf<String>()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(), Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requiredPermissions.add(Manifest.permission.BLUETOOTH_CONNECT)
-            } else {
-                Log.e("TAG", "BLUETOOTH_CONNECT = PERMISSION_GRANTED")
-            }
-
-        } else {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(), Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requiredPermissions.add(Manifest.permission.BLUETOOTH)
-            } else {
-                Log.e("TAG", "BLUETOOTH = PERMISSION_GRANTED")
-            }
-
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(), Manifest.permission.BLUETOOTH_ADMIN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requiredPermissions.add(Manifest.permission.BLUETOOTH_ADMIN)
-            } else {
-                Log.e("TAG", "BLUETOOTH_ADMIN = PERMISSION_GRANTED")
-            }
-        }
-
-
-        if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        } else {
-            Log.e("TAG", "ACCESS_FINE_LOCATION = PERMISSION_GRANTED")
-        }
-
-
-
-
-        if (requiredPermissions.isNotEmpty()) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                requiredPermissions.toTypedArray(),
-                PERMISSION_REQUEST_CODE
-            )
-        } else {
-            Log.e("TAG", "ALL PERMISSIONS GRANTED")
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-            pairedDevices = bluetoothAdapter.bondedDevices
-
-            startLocationPermissionRequest()
-//            connectToDevice()
-        }
-    }
-
-    private lateinit var pairedDevices: Set<BluetoothDevice>
-    private lateinit var device: BluetoothDevice
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            connectToDevice()
-        } else {
-            val errorMessage: String ="Permissions are required for Bluetooth functionality"
-            Log.e("TAG", errorMessage)
-
-            Toast.makeText(
-                requireContext(),
-                errorMessage,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    // Ex. Launching ACCESS_FINE_LOCATION permission.
-    private fun startLocationPermissionRequest() {
-        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
-
-
-    @SuppressLint("SetTextI18n")
-    private fun connectToDevice() {
-
-
-        // Get the default Bluetooth adapter
-        if (!bluetoothAdapter.isEnabled) {
-            // BT DISABLED
-            connStatus.text = getString(R.string.not_connected)
-            indicatorCon.setImageResource(R.drawable.indicator_red)
-
-            val errorMessage: String =
-                resources.getString(R.string.please_enable_bluetooth)
-            Log.e("TAG", errorMessage)
-
-            Toast.makeText(
-                activity,
-                errorMessage,
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-
-
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.BLUETOOTH_CONNECT
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            Log.e("TAG", "BLUETOOTH_CONNECT DENIED")
-
-            Toast.makeText(activity, "BLUETOOTH_CONNECT DENIED", Toast.LENGTH_SHORT)
-                .show()
-            return
-        } else {
-            Log.e("TAG", "BLUETOOTH_CONNECT = PERMISSION_GRANTED")
-        }
-
-
-        if (pairedDevices.isNotEmpty()) {
-            device = pairedDevices.first()
-            Log.e("TAG", "device = " + device.name)
-        } else {
-            // CANNOT CONNECT TO PAIRED DEVICE
-            connStatus.text = getString(R.string.not_connected)
-            indicatorCon.setImageResource(R.drawable.indicator_red)
-            Toast.makeText(
-                activity,
-                getString(R.string.cannot_connect_to_pd),
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-
-        var socket: BluetoothSocket? = null
-        val handler = Handler(Looper.getMainLooper())
-        val timeout = 5000L // Timeout in milliseconds
-        try {
-            socket = device.createRfcommSocketToServiceRecord(device.uuids[0].uuid)
-            Log.e("TAG", "socket assigned")
-            Log.e("TAG", "Socket Remote Device Name = " + socket.remoteDevice.name)
-
-            socket.remoteDevice.name
-
-            // Start a timer to handle the connection timeout
-            handler.postDelayed({
-                if (!socket.isConnected) {
-                    try {
-                        socket.close()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                    Log.e("TAG", "ConnectTimeout")
-                }
-            }, timeout)
-
-            socket.connect()
-            Log.e("TAG", "socket connected")
-
-            outputStream = socket.outputStream
-            Log.e("TAG", "outputStream assigned")
-
-            connStatus.text = getString(R.string.conn_status) + device.address
-            indicatorCon.setImageResource(R.drawable.indicator_green)
-
-            Toast.makeText(
-                activity, getString(R.string.connected_toast), Toast.LENGTH_SHORT
-            ).show()
-
-            // If connection successful, remove the timeout handler
-            handler.removeCallbacksAndMessages(null)
-
-        } catch (e: IOException) {
-            e.printStackTrace()
-
-            connStatus.text = getString(R.string.not_connected)
-            indicatorCon.setImageResource(R.drawable.indicator_red)
-
-            val errorMessage: String =
-                resources.getString(R.string.failed_to_connect_to_the_device) + e.message
-            Log.e("TAG", errorMessage)
-
-            Toast.makeText(
-                activity,
-                errorMessage,
-                Toast.LENGTH_SHORT
-            ).show()
-
-            // Attempt to close the socket if an error occurs
-            try {
-                socket?.close()
-            } catch (closeException: IOException) {
-                closeException.printStackTrace()
-            }
-        }
-    }
-
 
     override fun onDestroy() {
-        if (!btIsClassic) {
-            if (connected != Connected.False) disconnect()
-            requireActivity().stopService(Intent(activity, BLEserialService::class.java))
+        if (connected != Connected.False) disconnect()
+
+        if (btIsClassic) {
+            requireActivity().stopService(
+                Intent(
+                    activity, ClassicSerialService::class.java
+                )
+            )
+        } else {
+            requireActivity().stopService(
+                Intent(
+                    activity, BLEserialService::class.java
+                )
+            )
         }
+
         super.onDestroy()
     }
 
     override fun onStart() {
         super.onStart()
 
-        if (btIsClassic) return
-
-        if (service != null) {
-            service!!.attach(this)
-        } else requireActivity().startService(
-            Intent(
-                activity,
-                BLEserialService::class.java
+        if (btIsClassic) {
+            if (serviceClassic != null) {
+                serviceClassic!!.attach(this)
+            } else requireActivity().startService(
+                Intent(
+                    activity, ClassicSerialService::class.java
+                )
             )
-        )
+        } else {
+            if (serviceBLE != null) {
+                serviceBLE!!.attach(this)
+            } else {
+                requireActivity().startService(
+                    Intent(
+                        activity, BLEserialService::class.java
+                    )
+                )
+            }
+        }
     }
 
     override fun onStop() {
-        if (!btIsClassic && service != null && !requireActivity().isChangingConfigurations) service!!.detach()
+        if (btIsClassic) {
+            if (serviceClassic != null && !requireActivity().isChangingConfigurations) {
+                serviceClassic!!.detach()
+            }
+        } else {
+            if (serviceBLE != null &&
+                !requireActivity().isChangingConfigurations) {
+                serviceBLE!!.detach()
+                }
+        }
         super.onStop()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (btIsClassic) return
+        if (btIsClassic) {
+            requireActivity().bindService(
+                Intent(
+                    activity, ClassicSerialService::class.java
+                ), this, Context.BIND_AUTO_CREATE
+            )
 
-        requireActivity().bindService(
-            Intent(this.requireActivity(), BLEserialService::class.java),
-            this,
-            Context.BIND_AUTO_CREATE
-        )
+        } else {
+            requireActivity().bindService(
+                Intent(activity, BLEserialService::class.java),
+                this, Context.BIND_AUTO_CREATE
+            )
+
+        }
+
+
     }
 
     override fun onDetach() {
-        if (!btIsClassic) {
-            try {
-                requireActivity().unbindService(this)
-            } catch (ignored: Exception) {
-            }
+        try {
+            requireActivity().unbindService(this)
+        } catch (ignored: Exception) {
         }
         super.onDetach()
     }
@@ -360,19 +163,30 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
     override fun onResume() {
         super.onResume()
 
-        if (btIsClassic) return
-
-        if (initialStart && service != null) {
-            initialStart = false
-            requireActivity().runOnUiThread { connect() }
+        if (btIsClassic) {
+            if (initialStart && serviceClassic != null) {
+                initialStart = false
+                requireActivity().runOnUiThread { connect() }
+            }
+        } else {
+            if (initialStart && serviceBLE != null) {
+                initialStart = false
+                requireActivity().runOnUiThread { connect() }
+            }
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onServiceConnected(name: ComponentName, binder: IBinder) {
-        if (btIsClassic) return
+        if (btIsClassic) {
+            serviceClassic = (binder as ClassicSerialService.SerialBinder).service
+            serviceClassic!!.attach(this)
+        } else {
+            serviceBLE = (binder as BLEserialService.SerialBinder).service
+            serviceBLE!!.attach(this.serviceBLE!!)
+        }
 
-        service = (binder as SerialBinder).service
-        service!!.attach(this)
+
         if (initialStart && isResumed) {
             initialStart = false
             requireActivity().runOnUiThread { connect() }
@@ -380,16 +194,25 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
     }
 
     override fun onServiceDisconnected(name: ComponentName) {
+        if (btIsClassic) {
+            serviceClassic = null
+        } else {
+            serviceBLE = null
+        }
 
-        if (btIsClassic) return
+        connStatus.text = getString(R.string.not_connected)
+        indicatorCon.setImageResource(R.drawable.indicator_red)
 
-        service = null
+        val errorMessage: String = resources.getString(R.string.failed_to_connect_to_the_device)
+        Log.e("TAG", errorMessage)
+
+        Toast.makeText(
+            activity, errorMessage, Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         view = inflater.inflate(R.layout.fragment_controller, container, false)
         mainActivity = inflater.inflate(R.layout.activity_main, container, false)
@@ -399,11 +222,6 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         uiFunc()
-
-        checkAndRequestPermissions() // Check and request permissions
-
-        sendCharacter('4') // STOP CAR
-        sendCharacter('$') // STOP CAR
     }
 
 
@@ -436,31 +254,17 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
         reverseSwtich.isChecked = dirReversedBool
 
         tankModeSwitch.isChecked = tankModeBool
-        if (tankModeBool) {
-            sendCharacter('T')
-            joysticksTank.visibility = View.VISIBLE
-            joysticksNormal.visibility = View.GONE
-        } else {
-            sendCharacter('t')
-            joysticksNormal.visibility = View.VISIBLE
-            joysticksTank.visibility = View.GONE
-        }
-
-
+        joysticksNormal.visibility = View.VISIBLE
+        joysticksTank.visibility = View.GONE
 
         highSpeedSwitch.isChecked = highSpeedBool
-        if (highSpeedBool) {
-            sendCharacter(']')
-        } else {
-            sendCharacter('[')
-        }
 
         ledSwitch.setOnClickListener {
             ledEnabledBool = if (!ledEnabledBool) {
-                sendCharacter(',')
+                send(',')
                 true
             } else {
-                sendCharacter('.')
+                send('.')
                 false
             }
             ledSwitch.isChecked = ledEnabledBool
@@ -478,11 +282,11 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
 
             // Change control mode
             if (tankModeBool) {
-                sendCharacter('T')
+                send('T')
                 joysticksTank.visibility = View.VISIBLE
                 joysticksNormal.visibility = View.GONE
             } else {
-                sendCharacter('t')
+                send('t')
                 joysticksNormal.visibility = View.VISIBLE
                 joysticksTank.visibility = View.GONE
             }
@@ -490,10 +294,10 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
 
         highSpeedSwitch.setOnClickListener {
             highSpeedBool = if (!highSpeedBool) {
-                sendCharacter(']')
+                send(']')
                 true
             } else {
-                sendCharacter('[')
+                send('[')
                 false
             }
 
@@ -508,7 +312,7 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
         sliderNormalDir.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 sliderNormalDir.progress = 5
-                sendCharacter('$')
+                send('$')
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -548,14 +352,14 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
                     }
                 }
 
-                sendCharacter(sliderLeftChar)
+                send(sliderLeftChar)
             }
         })
 
         sliderNormalMotor.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 sliderNormalMotor.progress = 5
-                sendCharacter('4')
+                send('4')
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -594,14 +398,14 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
                         }
                     }
                 }
-                sendCharacter(sliderRightChar)
+                send(sliderRightChar)
             }
         })
 
         sliderTankLeft.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 sliderTankLeft.progress = 5
-                sendCharacter('$')
+                send('$')
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -641,14 +445,14 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
                     }
                 }
 
-                sendCharacter(sliderLeftChar)
+                send(sliderLeftChar)
             }
         })
 
         sliderTankRight.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 sliderTankRight.progress = 5
-                sendCharacter('4')
+                send('4')
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -687,7 +491,7 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
                         }
                     }
                 }
-                sendCharacter(sliderRightChar)
+                send(sliderRightChar)
             }
         })
 
@@ -702,65 +506,84 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
 
 
     ///////////////////
-    // BLE
+    // Serial
 
-    private fun connect() {
-        try {
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-            val device = bluetoothAdapter.getRemoteDevice(deviceAddress)
-            connected = Connected.Pending
-            val socket = BLEserialSocket(requireActivity().applicationContext, device)
-            service!!.connect(socket)
-        } catch (e: Exception) {
-            onSerialConnectError(e)
+    private fun connect() = try {
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        device = bluetoothAdapter.getRemoteDevice(deviceAddress)
+
+        connected = Connected.Pending
+
+        if (btIsClassic) {
+            val socketClassic = ClassicSerialSocket(
+                requireActivity().applicationContext, device
+            )
+            serviceClassic!!.connect(socketClassic)
+        } else {
+            val socketBLE = BLEserialSocket(
+                requireActivity().applicationContext, device
+            )
+            serviceBLE!!.connect(socketBLE)
         }
+
+    } catch (e: Exception) {
+        val errorMessage: String = resources.getString(R.string.failed_to_connect_to_the_device) + e.message
+        Log.e("TAG", errorMessage)
+        onSerialConnectError(e)
     }
 
     private fun disconnect() {
         connected = Connected.False
-        service!!.disconnect()
+
+        if (btIsClassic) {
+            serviceClassic!!.disconnect()
+        } else {
+            serviceBLE!!.disconnect()
+        }
     }
 
-    private fun sendCharacter(character: Char) {
-        if (btIsClassic) {
-//            Log.e("TAG", character.toString())
-            if (::outputStream.isInitialized) {
-                try {
-                    outputStream.write(character.code)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+    private fun send(character: Char) {
+        Log.e("TAG", "connected = $connected")
+        if (connected != Connected.True) {
+            connStatus.text = getString(R.string.not_connected)
+            indicatorCon.setImageResource(R.drawable.indicator_red)
+            Toast.makeText(activity, getString(R.string.not_connected), Toast.LENGTH_SHORT).show()
+            return
+        }
+        try {
+            val data: ByteArray = character.toString().toByteArray()
+
+            if (btIsClassic) {
+                serviceClassic!!.write(data)
+            } else {
+                serviceBLE!!.write(data)
             }
-        } else {
-            if (connected != Connected.True) {
-                connStatus.text = getString(R.string.not_connected)
-                indicatorCon.setImageResource(R.drawable.indicator_red)
-                Toast.makeText(activity, getString(R.string.not_connected), Toast.LENGTH_SHORT)
-                    .show()
-                return
-            }
-            try {
-                val data: ByteArray = character.toString().toByteArray()
-                service!!.write(data)
-            } catch (e: Exception) {
-                onSerialIoError(e)
-            }
+
+        } catch (e: Exception) {
+            onSerialIoError(e)
         }
     }
 
 
+    ////////////////////////////////
+    // SerialListener
+
     @SuppressLint("SetTextI18n")
     override fun onSerialConnect() {
-        if (btIsClassic) return
+        connected = Connected.True
 
         connStatus.text = getString(R.string.conn_status) + deviceAddress
         indicatorCon.setImageResource(R.drawable.indicator_green)
+
         Toast.makeText(activity, getString(R.string.connected_toast), Toast.LENGTH_SHORT).show()
-        connected = Connected.True
+
+        send('4') // STOP CAR
+        send('$') // STOP CAR
+        send('t') // No TankMode
+        send('[') // No HighspeedMode
     }
 
     override fun onSerialConnectError(e: Exception?) {
-        if (btIsClassic) return
         connStatus.text = getString(R.string.not_connected)
         indicatorCon.setImageResource(R.drawable.indicator_red)
 
@@ -769,33 +592,29 @@ class FragmentController : Fragment(), ServiceConnection, BLEserialListener {
         Log.e("TAG", errorMessage)
 
         Toast.makeText(
-            activity,
-            errorMessage,
-            Toast.LENGTH_SHORT
+            activity, errorMessage, Toast.LENGTH_SHORT
         ).show()
+
         disconnect()
     }
 
-    override fun onSerialRead(data: ByteArray) {
-        if (btIsClassic) return
-
+    override fun onSerialRead(data: ByteArray?) {
         val datas = ArrayDeque<ByteArray>()
         datas.add(data)
     }
 
+
     override fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {}
 
     override fun onSerialIoError(e: Exception?) {
-        if (btIsClassic) return
         connStatus.text = getString(R.string.not_connected)
         indicatorCon.setImageResource(R.drawable.indicator_red)
         Toast.makeText(activity, getString(R.string.conn_lost) + e!!.message, Toast.LENGTH_SHORT)
             .show()
         disconnect()
     }
-
-    // BLE
-    ///////////////////
+    // SerialListener
+    ////////////////////////////////
 
 
 }

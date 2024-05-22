@@ -1,267 +1,261 @@
-package zakirshikhli.ble_app.classic;
+@file:Suppress("DEPRECATION")
+
+package zakirshikhli.ble_app.classic
+
+import android.bluetooth.BluetoothAdapter
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.os.Bundle
+import android.os.IBinder
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.method.ScrollingMovementMethod
+import android.text.style.ForegroundColorSpan
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import zakirshikhli.ble_app.R
+import zakirshikhli.ble_app.SerialListener
+import java.util.ArrayDeque
 
 
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.method.ScrollingMovementMethod;
-import android.text.style.ForegroundColorSpan;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+/** @noinspection deprecation
+ */
+class TerminalFragment : Fragment(), ServiceConnection, SerialListener {
+    private enum class Connected {
+        False, Pending, True
+    }
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+    private var deviceAddress: String? = null
+    private var service: ClassicSerialService? = null
 
-import java.util.ArrayDeque;
+    private var receiveText: TextView? = null
+    private var sendText: TextView? = null
 
-import zakirshikhli.ble_app.R;
-
-/** @noinspection deprecation*/
-public class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
-
-    private enum Connected { False, Pending, True }
-
-    private String deviceAddress;
-    private SerialService service;
-
-    private TextView receiveText;
-    private TextView sendText;
-    private TextUtil.HexWatcher hexWatcher;
-
-    private Connected connected = Connected.False;
-    private boolean initialStart = true;
-    private boolean hexEnabled = false;
-    private boolean pendingNewline = false;
-    private String newline = TextUtil.newline_crlf;
+    private var connected = Connected.False
+    private var initialStart = true
+    private var pendingNewline = false
 
     /*
      * Lifecycle
      */
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        setRetainInstance(true);
-        if (getArguments() != null) {
-            deviceAddress = getArguments().getString("device");
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        retainInstance = true
+        if (arguments != null) {
+            deviceAddress = requireArguments().getString("device")
         }
     }
 
-    @Override
-    public void onDestroy() {
-        if (connected != Connected.False)
-            disconnect();
-        requireActivity().stopService(new Intent(getActivity(), SerialService.class));
-        super.onDestroy();
+    override fun onDestroy() {
+        if (connected != Connected.False) disconnect()
+        requireActivity().stopService(Intent(activity, ClassicSerialService::class.java))
+        super.onDestroy()
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(service != null)
-            service.attach(this);
-        else
-            requireActivity().startService(new Intent(getActivity(), SerialService.class)); // prevents service destroy on unbind from recreated activity caused by orientation change
+    override fun onStart() {
+        super.onStart()
+
+        if (service != null) {
+            service!!.attach(this)
+        } else requireActivity().startService(
+            Intent(
+                activity,
+                ClassicSerialService::class.java
+            )
+        )
     }
 
-    @Override
-    public void onStop() {
-        if(service != null && !requireActivity().isChangingConfigurations())
-            service.detach();
-        super.onStop();
+    override fun onStop() {
+        if (service != null && !requireActivity().isChangingConfigurations) {
+            service!!.detach()
+        }
+        super.onStop()
     }
 
-    @SuppressWarnings("deprecation") // onAttach(context) was added with API 23. onAttach(activity) works for all API versions
-    @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        requireActivity().bindService(new Intent(getActivity(), SerialService.class), this, Context.BIND_AUTO_CREATE);
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().bindService(
+            Intent(
+                activity,
+                ClassicSerialService::class.java
+            ), this,
+            Context.BIND_AUTO_CREATE
+        )
     }
 
-    @Override
-    public void onDetach() {
-        try { requireActivity().unbindService(this); } catch(Exception ignored) {}
-        super.onDetach();
+    override fun onDetach() {
+        try {
+            requireActivity().unbindService(this)
+        } catch (ignored: Exception) {
+        }
+        super.onDetach()
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(initialStart && service != null) {
-            initialStart = false;
-            requireActivity().runOnUiThread(this::connect);
+    override fun onResume() {
+        super.onResume()
+        if (initialStart && service != null) {
+            initialStart = false
+            requireActivity().runOnUiThread { this.connect() }
         }
     }
 
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder binder) {
-        service = ((SerialService.SerialBinder) binder).getService();
-        service.attach(this);
-        if(initialStart && isResumed()) {
-            initialStart = false;
-            requireActivity().runOnUiThread(this::connect);
+    override fun onServiceConnected(name: ComponentName, binder: IBinder) {
+        service = (binder as ClassicSerialService.SerialBinder).service
+        service!!.attach(this)
+        if (initialStart && isResumed) {
+            initialStart = false
+            requireActivity().runOnUiThread { this.connect() }
         }
     }
 
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-        service = null;
+    override fun onServiceDisconnected(name: ComponentName) {
+        service = null
     }
+
 
     /*
      * UI
      */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_classic_terminal, container, false);
-        receiveText = view.findViewById(R.id.receive_text);                          // TextView performance decreases with number of spans
-        receiveText.setTextColor(getResources().getColor(R.color.colorRecieveText)); // set as default color to reduce number of spans
-        receiveText.setMovementMethod(ScrollingMovementMethod.getInstance());
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_classic_terminal, container, false)
+        receiveText =
+            view.findViewById(R.id.receive_text) // TextView performance decreases with number of spans
+        receiveText!!.setTextColor(resources.getColor(R.color.colorRecieveText)) // set as default color to reduce number of spans
+        receiveText!!.movementMethod = ScrollingMovementMethod.getInstance()
 
-        sendText = view.findViewById(R.id.send_text);
-        hexWatcher = new TextUtil.HexWatcher(sendText);
-        hexWatcher.enable(hexEnabled);
-        sendText.addTextChangedListener(hexWatcher);
-        sendText.setHint(hexEnabled ? "HEX mode" : "");
-
-        View sendBtn = view.findViewById(R.id.send_btn);
-        sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
-        return view;
+        sendText = view.findViewById(R.id.send_text)
+        val sendBtn = view.findViewById<View>(R.id.send_btn)
+        sendBtn.setOnClickListener { v: View? -> send(sendText!!.getText().toString()) }
+        return view
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_terminal, menu);
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_terminal, menu)
     }
 
 
     /*
      * Serial + UI
      */
-    private void connect() {
+    private fun connect() {
         try {
-            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-            status("connecting...");
-            connected = Connected.Pending;
-            SerialSocket socket = new SerialSocket(requireActivity().getApplicationContext(), device);
-            service.connect(socket);
-        } catch (Exception e) {
-            onSerialConnectError(e);
+            val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            val device = bluetoothAdapter.getRemoteDevice(deviceAddress)
+            status("connecting...")
+            connected = Connected.Pending
+            val socket = ClassicSerialSocket(requireActivity().applicationContext, device)
+            service!!.connect(socket)
+        } catch (e: Exception) {
+            onSerialConnectError(e)
         }
     }
 
-    private void disconnect() {
-        connected = Connected.False;
-        service.disconnect();
+    private fun disconnect() {
+        connected = Connected.False
+        service!!.disconnect()
     }
 
-    private void send(String str) {
-        if(connected != Connected.True) {
-            Toast.makeText(getActivity(), "not connected", Toast.LENGTH_SHORT).show();
-            return;
+    private fun send(str: String) {
+        if (connected != Connected.True) {
+            Toast.makeText(activity, "not connected", Toast.LENGTH_SHORT).show()
+            return
         }
         try {
-            String msg;
-            byte[] data;
-            if(hexEnabled) {
-                StringBuilder sb = new StringBuilder();
-                TextUtil.toHexString(sb, TextUtil.fromHexString(str));
-                TextUtil.toHexString(sb, newline.getBytes());
-                msg = sb.toString();
-                data = TextUtil.fromHexString(msg);
-            } else {
-                msg = str;
-                data = (str + newline).getBytes();
-            }
-            SpannableStringBuilder spn = new SpannableStringBuilder(msg + '\n');
-            spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorSendText)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            receiveText.append(spn);
-            service.write(data);
-        } catch (Exception e) {
-            onSerialIoError(e);
+            val data: ByteArray
+
+            val msg = str
+            val newline = TextUtil.newline_crlf
+            data = (str + newline).toByteArray()
+
+            val spn = SpannableStringBuilder(msg + '\n')
+            spn.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.colorSendText)),
+                0,
+                spn.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            receiveText!!.append(spn)
+            service!!.write(data)
+        } catch (e: Exception) {
+            onSerialIoError(e)
         }
     }
 
-    private void receive(ArrayDeque<byte[]> datas) {
-        SpannableStringBuilder spn = new SpannableStringBuilder();
-        for (byte[] data : datas) {
-            if (hexEnabled) {
-                spn.append(TextUtil.toHexString(data)).append('\n');
-            } else {
-                String msg = new String(data);
-                if (newline.equals(TextUtil.newline_crlf) && !msg.isEmpty()) {
-                    // don't show CR as ^M if directly before LF
-                    msg = msg.replace(TextUtil.newline_crlf, TextUtil.newline_lf);
-                    // special handling if CR and LF come in separate fragments
-                    if (pendingNewline && msg.charAt(0) == '\n') {
-                        if(spn.length() >= 2) {
-                            spn.delete(spn.length() - 2, spn.length());
-                        } else {
-                            Editable edt = receiveText.getEditableText();
-                            if (edt != null && edt.length() >= 2)
-                                edt.delete(edt.length() - 2, edt.length());
-                        }
+    private fun receive(datas: ArrayDeque<ByteArray?>?) {
+        val spn = SpannableStringBuilder()
+        for (data in datas!!) {
+            var msg = String(data!!)
+            if (!msg.isEmpty()) {
+                // don't show CR as ^M if directly before LF
+                msg = msg.replace(TextUtil.newline_crlf, TextUtil.newline_lf)
+                // special handling if CR and LF come in separate fragments
+                if (pendingNewline && msg[0] == '\n') {
+                    if (spn.length >= 2) {
+                        spn.delete(spn.length - 2, spn.length)
+                    } else {
+                        val edt = receiveText!!.editableText
+                        if (edt != null && edt.length >= 2) edt.delete(edt.length - 2, edt.length)
                     }
-                    pendingNewline = msg.charAt(msg.length() - 1) == '\r';
                 }
-                spn.append(TextUtil.toCaretString(msg, !newline.isEmpty()));
+                pendingNewline = msg[msg.length - 1] == '\r'
             }
+            spn.append(TextUtil.toCaretString(msg, true))
         }
-        receiveText.append(spn);
+        receiveText!!.append(spn)
     }
 
-    private void status(String str) {
-        SpannableStringBuilder spn = new SpannableStringBuilder(str + '\n');
-        spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorStatusText)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        receiveText.append(spn);
+    private fun status(str: String) {
+        val spn = SpannableStringBuilder(str + '\n')
+        spn.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.colorStatusText)),
+            0,
+            spn.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        receiveText!!.append(spn)
     }
 
     /*
      * SerialListener
      */
-    @Override
-    public void onSerialConnect() {
-        status("connected");
-        connected = Connected.True;
+    override fun onSerialConnect() {
+        status("connected")
+        connected = Connected.True
+        Toast.makeText(activity, "Connected", Toast.LENGTH_SHORT).show()
     }
 
-    @Override
-    public void onSerialConnectError(Exception e) {
-        status("connection failed: " + e.getMessage());
-        disconnect();
+    override fun onSerialConnectError(e: Exception?) {
+        assert(e != null)
+        status("connection failed: " + e!!.message)
+        disconnect()
     }
 
-    @Override
-    public void onSerialRead(byte[] data) {
-        ArrayDeque<byte[]> datas = new ArrayDeque<>();
-        datas.add(data);
-        receive(datas);
+    override fun onSerialRead(data: ByteArray?) {
+        val datas = ArrayDeque<ByteArray?>()
+        datas.add(data)
+        receive(datas)
     }
 
-    public void onSerialRead(ArrayDeque<byte[]> datas) {
-        receive(datas);
+    override fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {
+        receive(datas)
     }
 
-    @Override
-    public void onSerialIoError(Exception e) {
-        status("connection lost: " + e.getMessage());
-        disconnect();
+    override fun onSerialIoError(e: Exception?) {
+        assert(e != null)
+        status("connection lost: " + e!!.message)
+        disconnect()
     }
-
 }

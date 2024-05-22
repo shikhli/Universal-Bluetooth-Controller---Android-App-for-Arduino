@@ -6,6 +6,7 @@ import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import zakirshikhli.ble_app.SerialListener
 import java.io.IOException
 import java.util.ArrayDeque
 
@@ -13,7 +14,7 @@ import java.util.ArrayDeque
  * create notification and queue serial data while activity is not in the foreground
  * use listener chain: SerialSocket -> SerialService -> UI fragment
  */
-class BLEserialService : Service(), BLEserialListener {
+class BLEserialService : Service(), SerialListener {
     internal inner class SerialBinder : Binder() {
         val service: BLEserialService
             get() = this@BLEserialService
@@ -66,7 +67,7 @@ class BLEserialService : Service(), BLEserialListener {
     private val queue2: ArrayDeque<QueueItem>
     private val lastRead: QueueItem
     private var socket: BLEserialSocket? = null
-    private var listener: BLEserialListener? = null
+    private var listener: SerialListener? = null
     private var connected = false
 
     /**
@@ -112,7 +113,7 @@ class BLEserialService : Service(), BLEserialListener {
         socket!!.write(data)
     }
 
-    fun attach(listener: BLEserialListener) {
+    fun attach(listener: SerialListener) {
         require(Looper.getMainLooper().thread === Thread.currentThread()) { "not in main thread" }
         synchronized(this) { this.listener = listener }
         for (item in queue1) {
@@ -178,18 +179,7 @@ class BLEserialService : Service(), BLEserialListener {
         }
     }
 
-    override fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {
-        throw UnsupportedOperationException()
-    }
-
-    /**
-     * reduce number of UI updates by merging data chunks.
-     * Data can arrive at hundred chunks per second, but the UI can only
-     * perform a dozen updates if receiveText already contains much text.
-     * On new data inform UI thread once (1).
-     * While not consumed (2), add more data (3).
-     */
-    override fun onSerialRead(data: ByteArray) {
+    override fun onSerialRead(data: ByteArray?) {
         if (connected) {
             synchronized(this) {
                 if (listener != null) {
@@ -223,6 +213,12 @@ class BLEserialService : Service(), BLEserialListener {
             }
         }
     }
+
+    override fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {
+        throw UnsupportedOperationException()
+    }
+
+
 
     override fun onSerialIoError(e: Exception?) {
         if (connected) {

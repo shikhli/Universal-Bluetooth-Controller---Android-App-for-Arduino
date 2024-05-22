@@ -48,7 +48,7 @@
             android:foregroundServiceType="remoteMessaging|connectedDevice" />
 
         <service
-            android:name=".classic.SerialService"
+            android:name=".classic.ClassicSerialService"
             android:foregroundServiceType="remoteMessaging|connectedDevice" />
     </application>
 

@@ -16,6 +16,7 @@ import android.content.IntentFilter
 import android.util.Log
 import androidx.core.content.ContextCompat
 import zakirshikhli.ble_app.R
+import zakirshikhli.ble_app.SerialListener
 import java.io.IOException
 import java.security.InvalidParameterException
 import java.util.Objects
@@ -71,7 +72,7 @@ class BLEserialSocket(context: Context, device: BluetoothDevice?) : BluetoothGat
     private val pairingBroadcastReceiver: BroadcastReceiver
     private val disconnectBroadcastReceiver: BroadcastReceiver
     private val context: Context
-    private var listener: BLEserialListener? = null
+    private var listener: SerialListener? = null
     private var delegate: DeviceDelegate? = null
     private var device: BluetoothDevice?
     private var gatt: BluetoothGatt? = null
@@ -143,7 +144,7 @@ class BLEserialSocket(context: Context, device: BluetoothDevice?) : BluetoothGat
      * connect-success and most connect-errors are returned asynchronously to listener
      */
     @Throws(IOException::class)
-    fun connect(listener: BLEserialListener?) {
+    fun connect(listener: SerialListener?) {
         if (connected || gatt != null) throw IOException("already connected")
         canceled = false
         this.listener = listener

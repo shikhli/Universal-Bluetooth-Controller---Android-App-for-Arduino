@@ -167,12 +167,9 @@ class ActivityMain : AppCompatActivity(), FragmentManager.OnBackStackChangedList
             btIsClassic = true
             appBarLayout.visibility = View.GONE
 
-            Toast.makeText(this, waitText, Toast.LENGTH_LONG).show()
-            Handler().postDelayed({
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment, FragmentDevicesClassic(), "devicesClassic").addToBackStack(null)
-                    .commit()
-            }, 100)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment, FragmentDevicesClassic(), "devicesClassic").addToBackStack(null)
+                .commit()
         }
 
 
