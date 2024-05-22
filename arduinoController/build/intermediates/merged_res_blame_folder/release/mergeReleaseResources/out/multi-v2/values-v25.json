@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "zakirshikhli.ble_app.arduinoController-mergeReleaseResources-29:/values-v25/values-v25.xml",
+            "outputFile": "zakirshikhli.ble_app.arduinoController-mergeReleaseResources-37:/values-v25/values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Asus\\.gradle\\caches\\transforms-3\\1fa2f913d1149e6369a7192435fcea27\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
+                    "source": "C:\\Users\\Asus\\.gradle\\caches\\transforms-4\\597048cc4b5fb821d9d3f7211196fc7e\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

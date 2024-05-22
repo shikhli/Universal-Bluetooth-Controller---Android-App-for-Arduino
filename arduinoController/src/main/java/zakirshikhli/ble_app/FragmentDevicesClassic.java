@@ -26,8 +26,7 @@ import androidx.fragment.app.ListFragment;
 
 import java.util.ArrayList;
 
-import zakirshikhli.ble_app.classic.ClassicBluetoothUtil;
-import zakirshikhli.ble_app.classic.TerminalFragment;
+import zakirshikhli.ble_app.classic.CLutil;
 
 /** @noinspection deprecation*/
 public class FragmentDevicesClassic extends ListFragment {
@@ -62,7 +61,7 @@ public class FragmentDevicesClassic extends ListFragment {
         };
         requestBluetoothPermissionLauncherForRefresh = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
-                granted -> ClassicBluetoothUtil.onPermissionsResult(this, granted, this::refresh));
+                granted -> CLutil.onPermissionsResult(this, granted, this::refresh));
     }
 
     @Override
@@ -101,7 +100,7 @@ public class FragmentDevicesClassic extends ListFragment {
             startActivity(intent);
             return true;
         } else if (id == R.id.bt_refresh) {
-            if(ClassicBluetoothUtil.hasPermissions(this, requestBluetoothPermissionLauncherForRefresh))
+            if(CLutil.hasPermissions(this, requestBluetoothPermissionLauncherForRefresh))
                 refresh();
             return true;
         } else {
@@ -122,7 +121,7 @@ public class FragmentDevicesClassic extends ListFragment {
                 for (BluetoothDevice device : bluetoothAdapter.getBondedDevices())
                     if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE)
                         listItems.add(device);
-                listItems.sort(ClassicBluetoothUtil::compareTo);
+                listItems.sort(CLutil::compareTo);
             }
         }
         if(bluetoothAdapter == null)

@@ -1,5 +1,6 @@
 package zakirshikhli.ble_app
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -7,6 +8,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -23,15 +25,19 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import zakirshikhli.ble_app.ActivityMain.Companion.btIsClassic
+
 import zakirshikhli.ble_app.ble.BLEserialService
 import zakirshikhli.ble_app.ble.BLEserialSocket
-import zakirshikhli.ble_app.classic.ClassicSerialService
-import zakirshikhli.ble_app.classic.ClassicSerialSocket
+
+import zakirshikhli.ble_app.classic.CLserialService
+import zakirshikhli.ble_app.classic.CLserialSocket
+
 import java.util.ArrayDeque
 
 
 @Suppress("DEPRECATION")
-class FragmentController : Fragment(), ServiceConnection, SerialListener {
+class FragmentController : Fragment(), ServiceConnection,
+     zakirshikhli.ble_app.classic.SerialListener, zakirshikhli.ble_app.ble.SerialListener {
 
     private enum class Connected {
         False, Pending, True
@@ -54,7 +60,7 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
     private var deviceAddress: String? = null
 
     private var serviceBLE: BLEserialService? = null
-    private var serviceClassic: ClassicSerialService? = null
+    private var serviceClassic: CLserialService? = null
 
     private var connected = Connected.False
     private var initialStart = true
@@ -65,6 +71,7 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
         setHasOptionsMenu(true)
         retainInstance = true
 
+        assert(arguments != null)
         deviceAddress = requireArguments().getString("device")
 
         dirReversedBool = false
@@ -79,7 +86,7 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
         if (btIsClassic) {
             requireActivity().stopService(
                 Intent(
-                    activity, ClassicSerialService::class.java
+                    activity, CLserialService::class.java
                 )
             )
         } else {
@@ -101,16 +108,20 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
                 serviceClassic!!.attach(this)
             } else requireActivity().startService(
                 Intent(
-                    activity, ClassicSerialService::class.java
+                    activity, CLserialService::class.java
                 )
             )
         } else {
             if (serviceBLE != null) {
-                serviceBLE!!.attach(this)
+                serviceBLE!!.attach(this.serviceBLE!!)
+                if (!serviceBLE!!.areNotificationsEnabled() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
+                }
             } else {
                 requireActivity().startService(
                     Intent(
-                        activity, BLEserialService::class.java
+                        activity,
+                        BLEserialService::class.java
                     )
                 )
             }
@@ -119,14 +130,16 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
 
     override fun onStop() {
         if (btIsClassic) {
-            if (serviceClassic != null && !requireActivity().isChangingConfigurations) {
+            if (serviceClassic != null &&
+                !requireActivity().isChangingConfigurations) {
                 serviceClassic!!.detach()
             }
         } else {
             if (serviceBLE != null &&
-                !requireActivity().isChangingConfigurations) {
+                !requireActivity().isChangingConfigurations
+            ) {
                 serviceBLE!!.detach()
-                }
+            }
         }
         super.onStop()
     }
@@ -137,14 +150,15 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
         if (btIsClassic) {
             requireActivity().bindService(
                 Intent(
-                    activity, ClassicSerialService::class.java
+                    activity, CLserialService::class.java
                 ), this, Context.BIND_AUTO_CREATE
             )
 
         } else {
             requireActivity().bindService(
                 Intent(activity, BLEserialService::class.java),
-                this, Context.BIND_AUTO_CREATE
+                this,
+                Context.BIND_AUTO_CREATE
             )
 
         }
@@ -162,16 +176,23 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
 
     override fun onResume() {
         super.onResume()
+        Log.e("TAG", "(onResume) initialStart = $initialStart")
 
         if (btIsClassic) {
             if (initialStart && serviceClassic != null) {
                 initialStart = false
-                requireActivity().runOnUiThread { connect() }
+                requireActivity().runOnUiThread {
+                    Log.e("TAG", "(onResume) connect()")
+                    connect()
+                }
             }
         } else {
             if (initialStart && serviceBLE != null) {
                 initialStart = false
-                requireActivity().runOnUiThread { connect() }
+                requireActivity().runOnUiThread {
+                    Log.e("TAG", "(onResume) connect()")
+                    connect()
+                }
             }
         }
     }
@@ -179,16 +200,18 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
     @SuppressLint("SetTextI18n")
     override fun onServiceConnected(name: ComponentName, binder: IBinder) {
         if (btIsClassic) {
-            serviceClassic = (binder as ClassicSerialService.SerialBinder).service
+            serviceClassic = (binder as CLserialService.SerialBinder).service
             serviceClassic!!.attach(this)
         } else {
             serviceBLE = (binder as BLEserialService.SerialBinder).service
-            serviceBLE!!.attach(this.serviceBLE!!)
+            serviceBLE!!.attach(this)
         }
 
+        Log.e("TAG", "(onServiceConnected) initialStart = $initialStart")
 
         if (initialStart && isResumed) {
             initialStart = false
+            Log.e("TAG", "(onServiceConnected) connect()")
             requireActivity().runOnUiThread { connect() }
         }
     }
@@ -515,7 +538,7 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
         connected = Connected.Pending
 
         if (btIsClassic) {
-            val socketClassic = ClassicSerialSocket(
+            val socketClassic = CLserialSocket(
                 requireActivity().applicationContext, device
             )
             serviceClassic!!.connect(socketClassic)
@@ -526,14 +549,22 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
             serviceBLE!!.connect(socketBLE)
         }
 
+
+
     } catch (e: Exception) {
-        val errorMessage: String = resources.getString(R.string.failed_to_connect_to_the_device) + e.message
+        val errorMessage: String =
+            resources.getString(R.string.failed_to_connect_to_the_device) + e.message
         Log.e("TAG", errorMessage)
         onSerialConnectError(e)
     }
 
     private fun disconnect() {
         connected = Connected.False
+
+        connStatus.text = getString(R.string.not_connected)
+        indicatorCon.setImageResource(R.drawable.indicator_red)
+        Toast.makeText(activity, getString(R.string.not_connected), Toast.LENGTH_SHORT).show()
+
 
         if (btIsClassic) {
             serviceClassic!!.disconnect()
@@ -544,12 +575,7 @@ class FragmentController : Fragment(), ServiceConnection, SerialListener {
 
     private fun send(character: Char) {
         Log.e("TAG", "connected = $connected")
-        if (connected != Connected.True) {
-            connStatus.text = getString(R.string.not_connected)
-            indicatorCon.setImageResource(R.drawable.indicator_red)
-            Toast.makeText(activity, getString(R.string.not_connected), Toast.LENGTH_SHORT).show()
-            return
-        }
+        if (connected != Connected.True) return
         try {
             val data: ByteArray = character.toString().toByteArray()
 

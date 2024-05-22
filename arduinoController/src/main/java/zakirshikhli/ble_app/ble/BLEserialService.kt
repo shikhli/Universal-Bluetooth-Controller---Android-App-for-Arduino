@@ -1,12 +1,13 @@
 package zakirshikhli.ble_app.ble
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import zakirshikhli.ble_app.SerialListener
 import java.io.IOException
 import java.util.ArrayDeque
 
@@ -115,6 +116,7 @@ class BLEserialService : Service(), SerialListener {
 
     fun attach(listener: SerialListener) {
         require(Looper.getMainLooper().thread === Thread.currentThread()) { "not in main thread" }
+        initNotification()
         synchronized(this) { this.listener = listener }
         for (item in queue1) {
             when (item.type) {
@@ -136,7 +138,22 @@ class BLEserialService : Service(), SerialListener {
         queue2.clear()
     }
 
+    private fun initNotification() {
+        val nc = NotificationChannel(
+            BLEconstants.NOTIFICATION_CHANNEL,
+            "Background service",
+            NotificationManager.IMPORTANCE_LOW
+        )
+        nc.setShowBadge(false)
+        val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        nm.createNotificationChannel(nc)
+    }
 
+    fun areNotificationsEnabled(): Boolean {
+        val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val nc = nm.getNotificationChannel(BLEconstants.NOTIFICATION_CHANNEL)
+        return nm.areNotificationsEnabled() && nc != null && nc.importance > NotificationManager.IMPORTANCE_NONE
+    }
 
     /**
      * SerialListener
@@ -179,6 +196,12 @@ class BLEserialService : Service(), SerialListener {
         }
     }
 
+
+
+    override fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {
+        throw UnsupportedOperationException()
+    }
+
     override fun onSerialRead(data: ByteArray?) {
         if (connected) {
             synchronized(this) {
@@ -213,12 +236,6 @@ class BLEserialService : Service(), SerialListener {
             }
         }
     }
-
-    override fun onSerialRead(datas: ArrayDeque<ByteArray?>?) {
-        throw UnsupportedOperationException()
-    }
-
-
 
     override fun onSerialIoError(e: Exception?) {
         if (connected) {

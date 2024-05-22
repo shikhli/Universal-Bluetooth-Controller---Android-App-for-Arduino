@@ -60,9 +60,11 @@
 
         <service
             android:name="zakirshikhli.ble_app.ble.BLEserialService"
-            android:foregroundServiceType="remoteMessaging|connectedDevice" />
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice|dataSync" />
         <service
-            android:name="zakirshikhli.ble_app.classic.ClassicSerialService"
+            android:name="zakirshikhli.ble_app.classic.CLserialService"
             android:foregroundServiceType="remoteMessaging|connectedDevice" />
 
         <provider

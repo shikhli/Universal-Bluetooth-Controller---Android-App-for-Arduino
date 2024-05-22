@@ -11,6 +11,7 @@
     <string name="bluetooth_permission_grant">Tətbiq üçün Bluetooth icazəsi tələb olunur. Növbəti pəncərədə onu təqdim edin.</string>
     <string name="bluetooth_permission_title">Bluetooth icazə</string>
     <string name="bluetooth_settings">Bluetooth tənzimləmələri</string>
+    <string name="cannot_connect_to_pd">Bağlanmış cihaza qoşulmaq alınmadı</string>
     <string name="close">BAĞLAMAQ</string>
     <string name="confirm">TƏSDİQ ET</string>
     <string name="conn_lost">Qoşulma itdi: </string>
@@ -36,7 +37,6 @@
     <string name="location_settings">Məkan tənzimləmələri</string>
     <string name="max_speed">Tam\nSürət</string>
     <string name="no_bluetooth_devices_found">- Bluetooth cihaz tapılmadı -</string>
-    <string name="no_paired_devices_found">Bağlanmış cihaz tapılmadı</string>
     <string name="not_connected">Qoşulma mövcud deyil</string>
     <string name="pairing_request">BAĞLANTI göndərildi\n-> Bağlantı üçün tələb olunan addımları edin. Yenidən qoşulun.</string>
     <string name="please_enable_bluetooth">Bluetooth-u aktivləşdirin</string>

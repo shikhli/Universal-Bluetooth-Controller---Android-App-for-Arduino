@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "zakirshikhli.ble_app.arduinoController-mergeReleaseResources-29:/values-port/values-port.xml",
+            "outputFile": "zakirshikhli.ble_app.arduinoController-mergeReleaseResources-37:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Asus\\.gradle\\caches\\transforms-3\\1fa2f913d1149e6369a7192435fcea27\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\Asus\\.gradle\\caches\\transforms-4\\597048cc4b5fb821d9d3f7211196fc7e\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

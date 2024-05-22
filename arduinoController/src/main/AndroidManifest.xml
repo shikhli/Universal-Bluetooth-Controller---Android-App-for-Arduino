@@ -45,10 +45,11 @@
 
         <service
             android:name=".ble.BLEserialService"
-            android:foregroundServiceType="remoteMessaging|connectedDevice" />
-
+            android:foregroundServiceType="connectedDevice|dataSync"
+            android:enabled="true"
+            android:exported="false" />
         <service
-            android:name=".classic.ClassicSerialService"
+            android:name=".classic.CLserialService"
             android:foregroundServiceType="remoteMessaging|connectedDevice" />
     </application>
 

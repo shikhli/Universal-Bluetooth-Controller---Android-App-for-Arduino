@@ -16,7 +16,6 @@ import android.content.IntentFilter
 import android.util.Log
 import androidx.core.content.ContextCompat
 import zakirshikhli.ble_app.R
-import zakirshikhli.ble_app.SerialListener
 import java.io.IOException
 import java.security.InvalidParameterException
 import java.util.Objects

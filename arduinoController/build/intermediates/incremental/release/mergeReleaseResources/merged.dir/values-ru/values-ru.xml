@@ -56,6 +56,7 @@
     <string msgid="6107532579223922871" name="call_notification_incoming_text">"Входящий вызов"</string>
     <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Текущий вызов"</string>
     <string msgid="59049573811482460" name="call_notification_screening_text">"Фильтрация входящего вызова"</string>
+    <string name="cannot_connect_to_pd">Не удалось подключиться к сопряжённому устройству.</string>
     <string name="character_counter_content_description">Введено символов: %1$d из %2$d</string>
     <string name="character_counter_overflowed_content_description">Превышено ограничение на количество символов (%1$d из %2$d)</string>
     <string name="clear_text_end_icon_content_description">Очистить текстовое поле</string>
@@ -64,8 +65,11 @@
     <string name="conn_lost">Соединение потеряно:</string>
     <string name="conn_status">"Подключён к:   "</string>
     <string name="connected_toast">Успешное подключение</string>
+    <string msgid="6083905920877235314" name="copy">"Копировать"</string>
     <string name="eng">English</string>
+    <string name="error_a11y_label">Ошибка: недопустимое значение</string>
     <string name="error_icon_content_description">Ошибка</string>
+    <string msgid="2427401033573778270" name="expand_button_title">"Дополнительно"</string>
     <string name="exposed_dropdown_menu_content_description">Показать раскрывающееся меню</string>
     <string name="failed_to_connect_to_the_device">Не удалось подключиться:</string>
     <string name="filterNamesLabel">Показать только HM и HC</string>
@@ -101,6 +105,9 @@
     <string name="material_timepicker_text_input_mode_description">Чтобы ввести время, перейдите в режим ввода текста.</string>
     <string name="max_speed">Полная\nСкорость</string>
     <string name="mtrl_badge_numberless_content_description">Новое уведомление</string>
+    <string name="mtrl_checkbox_state_description_checked">Флажок установлен.</string>
+    <string name="mtrl_checkbox_state_description_indeterminate">Флажки установлены частично.</string>
+    <string name="mtrl_checkbox_state_description_unchecked">Флажок не установлен.</string>
     <string name="mtrl_chip_close_icon_content_description">Удалить \"%1$s\"</string>
     <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Новых уведомлений больше %1$d</string>
     <string name="mtrl_picker_a11y_next_month">Перейти к следующему месяцу</string>
@@ -113,7 +120,7 @@
     <string name="mtrl_picker_date_header_selected">%1$s</string>
     <string name="mtrl_picker_date_header_title">Выберите дату</string>
     <string name="mtrl_picker_date_header_unselected">Выбранная дата</string>
-    <string name="mtrl_picker_day_of_week_column_header">Столбец со днями недели: %1$s</string>
+    <string name="mtrl_picker_day_of_week_column_header">%1$s</string>
     <string name="mtrl_picker_end_date_description">Дата окончания: %1$s</string>
     <string name="mtrl_picker_invalid_format">Недействительный формат.</string>
     <string name="mtrl_picker_invalid_format_example">Пример: %1$s</string>
@@ -143,11 +150,12 @@
     <string name="mtrl_timepicker_cancel">Отмена</string>
     <string name="mtrl_timepicker_confirm">ОК</string>
     <string name="no_bluetooth_devices_found">- Устройство Bluetooth не найдено -</string>
-    <string name="no_paired_devices_found">Сопряженное устройство не найдено</string>
     <string name="not_connected">Подключение отсутствует</string>
+    <string msgid="6573031135582639649" name="not_set">"Не указано"</string>
     <string name="pairing_request">Запрошено СОПРЯЖЕНИЕ\\n\n-> Выполните действия по сопряжению. Подключитесь снова</string>
     <string name="password_toggle_content_description">Показать пароль</string>
     <string name="please_enable_bluetooth">Включите Bluetooth</string>
+    <string msgid="6685851473431805375" name="preference_copied">"Текст \"<ns1:g id="SUMMARY">%1$s</ns1:g>\" скопирован в буфер обмена"</string>
     <string name="quitToast">Для выхода нажмите НАЗАД ещё один раз</string>
     <string name="restart">Перезапуск</string>
     <string name="reverse_button_label">Реверс</string>
@@ -155,13 +163,19 @@
     <string name="scan">ИСКАТЬ</string>
     <string name="scanning">- Идет поиск… -</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Поиск"</string>
+    <string name="searchview_clear_text_content_description">Очистить текстовое поле</string>
+    <string name="searchview_navigation_content_description">Назад</string>
     <string name="share_message">Скачать приложение \"Универсальный Bluetooth Контроллер\" в Google Play:\n\nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app</string>
     <string name="share_via">Поделится через</string>
+    <string name="side_sheet_accessibility_pane_title">Боковая панель</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">">999"</string>
     <string name="stop">ОСТАНОВИТЬ</string>
+    <string msgid="9167775378838880170" name="summary_collapsed_preference_list">"<ns1:g id="CURRENT_ITEMS">%1$s</ns1:g>, <ns1:g id="ADDED_ITEMS">%2$s</ns1:g>"</string>
     <string name="tankMode">Режим\nТанка</string>
     <string name="unnamed">- Безымянное устройство -</string>
     <string name="use_scan_to_refresh_devices">- Нажмите ИСКАТЬ -</string>
+    <string msgid="3140233346420563315" name="v7_preference_off">"ВЫКЛ."</string>
+    <string msgid="89551595707643515" name="v7_preference_on">"ВКЛ."</string>
     <string name="ver_info">"Версия приложения:   "</string>
     <string name="waitText">Подождите…</string>
 </resources>
