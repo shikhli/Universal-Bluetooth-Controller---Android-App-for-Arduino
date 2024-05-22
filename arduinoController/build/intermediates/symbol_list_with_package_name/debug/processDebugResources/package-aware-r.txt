@@ -3206,7 +3206,6 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
-id backgroundNotification
 id barrier
 id baseline
 id beginOnFirstDraw
@@ -3235,7 +3234,6 @@ id checkbox
 id checked
 id chronometer
 id circle_center
-id clear
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -3267,6 +3265,7 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
+id devListTest
 id dialog_button
 id dimensions
 id direct
@@ -3329,7 +3328,6 @@ id helpPanel
 id helpPanelLabel
 id helpText
 id help_button
-id hex
 id hide_ime_id
 id hideable
 id high_speed_switch
@@ -3437,7 +3435,6 @@ id navigation_bar_item_large_label_view
 id navigation_bar_item_small_label_view
 id navigation_header_container
 id never
-id newline
 id noScroll
 id none
 id normal
@@ -3855,9 +3852,8 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
-menu menu_devices
 menu menu_devices_ble
-menu menu_terminal
+menu menu_devices_classic
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 plurals mtrl_badge_content_description
@@ -3925,6 +3921,7 @@ string conn_lost
 string conn_status
 string connected_toast
 string copy
+string devices
 string eng
 string error_a11y_label
 string error_icon_content_description
@@ -3941,7 +3938,6 @@ string icon_content_description
 string initializing
 string item_view_role_description
 string lang_title
-string le_devices
 string led
 string location_permission_denied
 string location_permission_grant
@@ -4057,9 +4053,11 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string permission_missing
 string please_enable_bluetooth
 string preference_copied
 string quitToast
+string refresh
 string restart
 string reverse_button_label
 string rus

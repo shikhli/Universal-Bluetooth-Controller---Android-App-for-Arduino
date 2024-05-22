@@ -7,7 +7,7 @@
     <string name="bluetooth_le_label"><b><font color= '#B4CF18'>Bluetooth Low Energy (BLE)</font></b>\n(HM-10 etc.)</string>
     <string name="bluetooth_classic_label"><b><font color= '#1EA4FF'>Bluetooth Classic</font></b>\n(HC-05, HC-06 etc.)</string>
     <string name="quitToast">Click BACK again to Exit</string>
-    <string name="le_devices">BLE Devices</string>
+    <string name="devices">Devices</string>
     <string name="led">LED\nBoard</string>
     <string name="tankMode">Tank\nMode</string>
     <string name="max_speed">Full\nSpeed</string>
@@ -26,14 +26,15 @@
     <string name="location_permission_grant">This app does not use location information, but scanning for Bluetooth LE devices requires this permission. Please grant in next dialog.</string>
     <string name="location_permission_denied">As location permission has not been granted, this app cannot scan for Bluetooth LE devices.</string>
     <string name="pairing_request">PAIRING requested\n-> Perform pairing steps. Connect again</string>
+    <string name="permission_missing">Permission is missing or press REFRESH</string>
 
     <!--    LONG TEXTs    -->
-    <string name="helpText">1) First, we recommend to read description of this app in <font color= '#39CFC1'>Google Play</font>:
-        \nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app
-        \n\n2) Be sure You uploaded the latest version of <font color= '#39CFC1'>Arduino Code</font> to your Arduino device after every app update:
-        \nhttps://github.com/shikhli/Arduino-Bluetooth-car-remote
-        \n\n3) <font color= '#39CFC1'>Bluetooth Low Energy (BLE)</font>:  To connect to BLE type Bluetooth devices, your Android device must have both Bluetooth and Location enabled. (This app does not use or collect any geolocation data)
-        \n\n4) <font color= '#39CFC1'>Bluetooth Classic</font>:  First, pair with a device from the system Bluetooth menu, then enter the application.</string>
+    <string name="helpText">
+        1) First, we recommend to read description of this app in <font color="#39CFC1">Google Play</font>:\n
+        https://play.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n
+        2) Be sure You uploaded the latest version of <font color="#39CFC1">Arduino Code</font> to your Arduino device after app update:\n
+        https://github.com/shikhli/Bluetooth-Car-Remote-Arduino-Code\n\n
+        3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  To connect to BLE type Bluetooth devices, your Android device must have both Bluetooth and Location enabled. This app does not use or collect any geolocation data.</string>
 
     <!--    Connection statuses    -->
     <string name="conn_status">"Connected to:   "</string>
@@ -62,6 +63,7 @@
     <string name="eng">English</string>
     <string name="rus">Русский</string>
     <string name="confirm">CONFIRM</string>
+    <string name="refresh">REFRESH</string>
 
     <!--    Sharing    -->
     <string name="share_message">Get \"Universal Bluetooth Controller\" app on Google Play:\n\nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app</string>

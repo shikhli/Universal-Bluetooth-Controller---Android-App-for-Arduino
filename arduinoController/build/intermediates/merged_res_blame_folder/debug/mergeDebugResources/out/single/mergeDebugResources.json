@@ -40,6 +40,10 @@
         "source": "zakirshikhli.ble_app.arduinoController-main-41:/drawable/joysticks_style.xml"
     },
     {
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/menu_menu_devices_classic.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-41:/menu/menu_devices_classic.xml"
+    },
+    {
         "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
         "source": "zakirshikhli.ble_app.arduinoController-main-41:/mipmap-hdpi/ic_launcher_foreground.webp"
     },
@@ -56,24 +60,16 @@
         "source": "zakirshikhli.ble_app.arduinoController-main-41:/mipmap-xxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/menu_menu_devices.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-41:/menu/menu_devices.xml"
-    },
-    {
         "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/drawable_rounded_rectangle_text.xml.flat",
         "source": "zakirshikhli.ble_app.arduinoController-main-41:/drawable/rounded_rectangle_text.xml"
     },
     {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-41:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "zakirshikhli.ble_app.arduinoController-main-41:/mipmap-anydpi/ic_launcher.xml"
     },
     {
         "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/layout_device_list_header_classic.xml.flat",
         "source": "zakirshikhli.ble_app.arduinoController-main-41:/layout/device_list_header_classic.xml"
-    },
-    {
-        "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/menu_menu_terminal.xml.flat",
-        "source": "zakirshikhli.ble_app.arduinoController-main-41:/menu/menu_terminal.xml"
     },
     {
         "merged": "zakirshikhli.ble_app.arduinoController-debug-39:/drawable_ic_language.webp.flat",

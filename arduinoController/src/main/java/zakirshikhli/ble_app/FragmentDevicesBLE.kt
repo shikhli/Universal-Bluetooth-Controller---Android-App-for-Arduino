@@ -34,6 +34,8 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import zakirshikhli.ble_app.ble.BLEutil
@@ -128,6 +130,24 @@ class FragmentDevicesBLE : ListFragment() {
                 }
 
             }
+
+
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request the ACCESS_FINE_LOCATION permission
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ),
+                1
+            )
+        }
+
     }
 
 

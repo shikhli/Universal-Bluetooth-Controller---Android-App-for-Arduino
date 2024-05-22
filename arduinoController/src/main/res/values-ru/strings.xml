@@ -5,7 +5,7 @@
 
 
     <!--    UI Elements    -->
-    <string name="le_devices">Устройства BLE</string>
+    <string name="devices">Устройства</string>
     <string name="bluetooth_permission_title">Разрешение Bluetooth</string>
     <string name="bluetooth_permission_grant">Приложению требуется разрешение Bluetooth. Предоставьте его в следующем диалоге.</string>
     <string name="bluetooth_permission_denied">Bluetooth разрешение была отказано навсегда. Для восстанавления разрешения нужно зайти в свойства приложения.</string>
@@ -23,12 +23,12 @@
 
 
 
-    <string name="helpText">1) Сначало, советуем прочесть описание приложения в <font color= '#39CFC1'>Google Play</font>:
-        \nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app
-        \n\n2) После каждого обновления приложения, убедитесь что на вашем Ардуино устройсте последняя версия <font color= '#39CFC1'>кода для Ардуино</font>:
-        \nhttps://github.com/shikhli/Arduino-Bluetooth-car-remote
-        \n\n3) <font color= '#39CFC1'>Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. (Данное приложение не использует и не собирает никакие данные о местоположении)
-        \n\n4) <font color= '#39CFC1'>Bluetooth Classic</font>:  Сначала подключитесь к устройству из системного меню Bluetooth, затем войдите в приложение.</string>
+    <string name="helpText">
+        1) Сначало, советуем прочесть описание приложения в <font color="#39CFC1">Google Play</font>:\n
+        https://play.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n
+        2) Если приложение обновился, убедитесь что на вашем Ардуино устройсте последняя версия <font color="#39CFC1">кода для Ардуино</font>:\n
+        https://github.com/shikhli/Bluetooth-Car-Remote-Arduino-Code\n\n
+        3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. Данное приложение не использует и не собирает какие либо данные о местоположении.</string>
 
 
 
@@ -69,5 +69,7 @@
     // Sharing
     <string name="share_message">Скачать приложение \"Универсальный Bluetooth Контроллер\" в Google Play:\n\nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app</string>
     <string name="share_via">Поделится через</string>
+    <string name="refresh">ОБНОВИТЬ</string>
+    <string name="permission_missing">Отсутствует разрешение или нужно нажимать ОБНОВИТЬ</string>
 
 </resources>

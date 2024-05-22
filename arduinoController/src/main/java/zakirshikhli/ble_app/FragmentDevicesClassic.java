@@ -21,14 +21,18 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import zakirshikhli.ble_app.classic.CLutil;
 
-/** @noinspection deprecation*/
+/**
+ * @noinspection deprecation
+ */
 public class FragmentDevicesClassic extends ListFragment {
 
     private BluetoothAdapter bluetoothAdapter;
@@ -42,7 +46,7 @@ public class FragmentDevicesClassic extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if(requireActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+        if (requireActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         listAdapter = new ArrayAdapter<>(requireActivity(), 0, listItems) {
             @NonNull
@@ -68,7 +72,10 @@ public class FragmentDevicesClassic extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setListAdapter(null);
-        @SuppressLint("InflateParams") View header = requireActivity().getLayoutInflater().inflate(R.layout.device_list_header_classic, null, false);
+        View header = requireActivity().getLayoutInflater().inflate(
+                R.layout.device_list_header_classic,
+                requireActivity().findViewById(R.id.devListTest),
+                false);
         getListView().addHeaderView(header, null, false);
         setEmptyText("initializing...");
         ((TextView) getListView().getEmptyView()).setTextSize(18);
@@ -78,10 +85,10 @@ public class FragmentDevicesClassic extends ListFragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         this.menu = menu;
-        inflater.inflate(R.menu.menu_devices, menu);
-        if(permissionMissing)
+        inflater.inflate(R.menu.menu_devices_classic, menu);
+        if (permissionMissing)
             menu.findItem(R.id.bt_refresh).setVisible(true);
-        if(bluetoothAdapter == null)
+        if (bluetoothAdapter == null)
             menu.findItem(R.id.bt_settings).setEnabled(false);
     }
 
@@ -100,7 +107,7 @@ public class FragmentDevicesClassic extends ListFragment {
             startActivity(intent);
             return true;
         } else if (id == R.id.bt_refresh) {
-            if(CLutil.hasPermissions(this, requestBluetoothPermissionLauncherForRefresh))
+            if (CLutil.hasPermissions(this, requestBluetoothPermissionLauncherForRefresh))
                 refresh();
             return true;
         } else {
@@ -108,28 +115,30 @@ public class FragmentDevicesClassic extends ListFragment {
         }
     }
 
-    @SuppressLint("MissingPermission")
     void refresh() {
         listItems.clear();
-        if(bluetoothAdapter != null) {
+        if (bluetoothAdapter != null) {
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 permissionMissing = requireActivity().checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED;
-                if(menu != null && menu.findItem(R.id.bt_refresh) != null)
+                if (menu != null && menu.findItem(R.id.bt_refresh) != null)
                     menu.findItem(R.id.bt_refresh).setVisible(permissionMissing);
             }
-            if(!permissionMissing) {
+
+            if (!permissionMissing) {
                 for (BluetoothDevice device : bluetoothAdapter.getBondedDevices())
                     if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE)
                         listItems.add(device);
                 listItems.sort(CLutil::compareTo);
             }
+
         }
-        if(bluetoothAdapter == null)
-            setEmptyText("<bluetooth not supported>");
-        else if(!bluetoothAdapter.isEnabled())
-            setEmptyText("<bluetooth is disabled>");
-        else if(permissionMissing)
-            setEmptyText("<permission missing, use REFRESH>");
+        if (bluetoothAdapter == null)
+            setEmptyText("- Bluetooth not supported -");
+        else if (!bluetoothAdapter.isEnabled())
+            setEmptyText(getResources().getString(R.string.bluetooth_is_disabled));
+        else if (permissionMissing)
+            setEmptyText( getResources().getString(R.string.permission_missing));
         else
             setEmptyText("<no bluetooth devices found>");
         listAdapter.notifyDataSetChanged();
@@ -137,7 +146,7 @@ public class FragmentDevicesClassic extends ListFragment {
 
     @Override
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
-        BluetoothDevice device = listItems.get(position-1);
+        BluetoothDevice device = listItems.get(position - 1);
         Bundle args = new Bundle();
         args.putString("device", device.getAddress());
         Fragment fragment = new FragmentController();

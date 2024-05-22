@@ -23,8 +23,8 @@ object CLutil {
     @JvmStatic
     @SuppressLint("MissingPermission")
     fun compareTo(a: BluetoothDevice, b: BluetoothDevice): Int {
-        val aValid = a.name != null && !a.name.isEmpty()
-        val bValid = b.name != null && !b.name.isEmpty()
+        val aValid = a.name != null && a.name.isNotEmpty()
+        val bValid = b.name != null && b.name.isNotEmpty()
         if (aValid && bValid) {
             val ret = a.name.compareTo(b.name)
             if (ret != 0) return ret

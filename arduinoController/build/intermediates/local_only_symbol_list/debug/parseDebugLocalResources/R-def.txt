@@ -38,7 +38,6 @@ font comfortaa_font
 font comfortaa_font_resource
 id appBarLayout
 id app_info
-id backgroundNotification
 id ble_scan
 id ble_scan_stop
 id bt_refresh
@@ -47,9 +46,9 @@ id buttonBLE
 id buttonClassic
 id buttons_cont
 id buttons_mm
-id clear
 id connStatus
 id connection_status_parent
+id devListTest
 id emailButton
 id filterNames
 id fragment
@@ -58,7 +57,6 @@ id helpPanel
 id helpPanelLabel
 id helpText
 id help_button
-id hex
 id high_speed_switch
 id indicator_con
 id joysticksNormal
@@ -67,7 +65,6 @@ id lang_button
 id led_switch
 id loc_settings
 id mainMenuContainer
-id newline
 id quitButton
 id receive_text
 id restartButton
@@ -91,9 +88,8 @@ layout device_list_item_classic
 layout fragment_ble_devices
 layout fragment_classic_terminal
 layout fragment_controller
-menu menu_devices
 menu menu_devices_ble
-menu menu_terminal
+menu menu_devices_classic
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 string app_name
@@ -113,6 +109,7 @@ string confirm
 string conn_lost
 string conn_status
 string connected_toast
+string devices
 string eng
 string failed_to_connect_to_the_device
 string filterNamesLabel
@@ -120,7 +117,6 @@ string helpButtonLabel
 string helpText
 string initializing
 string lang_title
-string le_devices
 string led
 string location_permission_denied
 string location_permission_grant
@@ -130,8 +126,10 @@ string max_speed
 string no_bluetooth_devices_found
 string not_connected
 string pairing_request
+string permission_missing
 string please_enable_bluetooth
 string quitToast
+string refresh
 string restart
 string reverse_button_label
 string rus

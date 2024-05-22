@@ -24,7 +24,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
-            app:title="@string/le_devices"
+            app:title="@string/devices"
             app:titleTextAppearance="@font/comfortaa_font_resource" />
 
     </com.google.android.material.appbar.AppBarLayout>

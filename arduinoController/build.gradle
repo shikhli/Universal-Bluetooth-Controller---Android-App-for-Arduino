@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
     compileSdk 34
 
     defaultConfig {
@@ -11,7 +17,7 @@ android {
         minSdk 26
         vectorDrawables.useSupportLibrary true
 
-        versionCode 24
+        versionCode 25
         versionName "0.0$versionCode"
     }
 
@@ -23,7 +29,8 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
     buildFeatures { viewBinding true }

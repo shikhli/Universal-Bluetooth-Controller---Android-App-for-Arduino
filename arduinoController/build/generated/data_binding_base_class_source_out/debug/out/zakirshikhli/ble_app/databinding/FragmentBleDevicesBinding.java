@@ -20,14 +20,19 @@ public final class FragmentBleDevicesBinding implements ViewBinding {
   private final LinearLayoutCompat rootView;
 
   @NonNull
+  public final LinearLayoutCompat devListTest;
+
+  @NonNull
   public final AppCompatTextView text1;
 
   @NonNull
   public final AppCompatTextView text2;
 
   private FragmentBleDevicesBinding(@NonNull LinearLayoutCompat rootView,
-      @NonNull AppCompatTextView text1, @NonNull AppCompatTextView text2) {
+      @NonNull LinearLayoutCompat devListTest, @NonNull AppCompatTextView text1,
+      @NonNull AppCompatTextView text2) {
     this.rootView = rootView;
+    this.devListTest = devListTest;
     this.text1 = text1;
     this.text2 = text2;
   }
@@ -59,6 +64,8 @@ public final class FragmentBleDevicesBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      LinearLayoutCompat devListTest = (LinearLayoutCompat) rootView;
+
       id = R.id.text1;
       AppCompatTextView text1 = ViewBindings.findChildViewById(rootView, id);
       if (text1 == null) {
@@ -71,7 +78,8 @@ public final class FragmentBleDevicesBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentBleDevicesBinding((LinearLayoutCompat) rootView, text1, text2);
+      return new FragmentBleDevicesBinding((LinearLayoutCompat) rootView, devListTest, text1,
+          text2);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

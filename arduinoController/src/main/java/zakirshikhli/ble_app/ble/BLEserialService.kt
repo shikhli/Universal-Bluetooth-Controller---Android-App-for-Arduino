@@ -63,23 +63,13 @@ class BLEserialService : Service(), SerialListener {
     }
 
     private val mainLooper: Handler = Handler(Looper.getMainLooper())
-    private val binder: IBinder
-    private val queue1: ArrayDeque<QueueItem>
-    private val queue2: ArrayDeque<QueueItem>
-    private val lastRead: QueueItem
+    private val binder: IBinder = SerialBinder()
+    private val queue1: ArrayDeque<QueueItem> = ArrayDeque()
+    private val queue2: ArrayDeque<QueueItem> = ArrayDeque()
+    private val lastRead: QueueItem = QueueItem(QueueType.Read)
     private var socket: BLEserialSocket? = null
     private var listener: SerialListener? = null
     private var connected = false
-
-    /**
-     * Lifecylce
-     */
-    init {
-        binder = SerialBinder()
-        queue1 = ArrayDeque()
-        queue2 = ArrayDeque()
-        lastRead = QueueItem(QueueType.Read)
-    }
 
     override fun onDestroy() {
         disconnect()

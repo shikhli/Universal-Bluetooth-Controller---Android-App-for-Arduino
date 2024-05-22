@@ -1,5 +1,6 @@
 package zakirshikhli.ble_app.classic
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
@@ -36,6 +37,7 @@ class CLserialSocket(context: Context, device: BluetoothDevice) : Runnable {
     }
 
     val name: String
+        @SuppressLint("MissingPermission")
         get() = if (device.name != null) device.name else device.address
 
     /**
@@ -75,6 +77,7 @@ class CLserialSocket(context: Context, device: BluetoothDevice) : Runnable {
         socket!!.outputStream.write(data)
     }
 
+    @SuppressLint("MissingPermission")
     override fun run() { // connect & read
         try {
             socket = device.createRfcommSocketToServiceRecord(BLUETOOTH_SPP)

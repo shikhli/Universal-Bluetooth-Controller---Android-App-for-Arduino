@@ -6,7 +6,9 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,7 +23,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import zakirshikhli.ble_app.R.string.*
@@ -173,10 +177,25 @@ class ActivityMain : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         }
 
 
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.BLUETOOTH_CONNECT
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request the BLUETOOTH_CONNECT permission
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        android.Manifest.permission.BLUETOOTH_CONNECT
+                    ),
+                    1
+                )
+            }
+        }
+
+
     }
-
-
-
 
 
     override fun onBackStackChanged() {

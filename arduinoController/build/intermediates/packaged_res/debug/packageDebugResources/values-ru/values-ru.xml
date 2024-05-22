@@ -17,19 +17,19 @@
     <string name="conn_lost">Соединение потеряно:</string>
     <string name="conn_status">"Подключён к:   "</string>
     <string name="connected_toast">Успешное подключение</string>
+    <string name="devices">Устройства</string>
     <string name="eng">English</string>
     <string name="failed_to_connect_to_the_device">Не удалось подключиться:</string>
     <string name="filterNamesLabel">Показать только HM и HC</string>
     <string name="helpButtonLabel">Помощь</string>
-    <string name="helpText">1) Сначало, советуем прочесть описание приложения в <font color="#39CFC1">Google Play</font>:
-        \nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app
-        \n\n2) После каждого обновления приложения, убедитесь что на вашем Ардуино устройсте последняя версия <font color="#39CFC1">кода для Ардуино</font>:
-        \nhttps://github.com/shikhli/Arduino-Bluetooth-car-remote
-        \n\n3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. (Данное приложение не использует и не собирает никакие данные о местоположении)
-        \n\n4) <font color="#39CFC1">Bluetooth Classic</font>:  Сначала подключитесь к устройству из системного меню Bluetooth, затем войдите в приложение.</string>
+    <string name="helpText">
+        1) Сначало, советуем прочесть описание приложения в <font color="#39CFC1">Google Play</font>:\n
+        https://play.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n
+        2) Если приложение обновился, убедитесь что на вашем Ардуино устройсте последняя версия <font color="#39CFC1">кода для Ардуино</font>:\n
+        https://github.com/shikhli/Bluetooth-Car-Remote-Arduino-Code\n\n
+        3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. Данное приложение не использует и не собирает какие либо данные о местоположении.</string>
     <string name="initializing">Подготовливается…</string>
     <string name="lang_title">Язык приложения</string>
-    <string name="le_devices">Устройства BLE</string>
     <string name="led">LED\nПанель</string>
     <string name="location_permission_denied">Поскольку разрешение на определение местоположения не предоставлено, это приложение не может выполнять поиск устройств Bluetooth LE.</string>
     <string name="location_permission_grant">Это приложение не использует информацию о местоположении, но для сканирования устройств Bluetooth LE требуется это разрешение. Пожалуйста, предоставьте разрешение в следующем диалоге.</string>
@@ -39,8 +39,10 @@
     <string name="no_bluetooth_devices_found">- Устройство Bluetooth не найдено -</string>
     <string name="not_connected">Подключение отсутствует</string>
     <string name="pairing_request">Запрошено СОПРЯЖЕНИЕ\\n\n-> Выполните действия по сопряжению. Подключитесь снова</string>
+    <string name="permission_missing">Отсутствует разрешение или нужно нажимать ОБНОВИТЬ</string>
     <string name="please_enable_bluetooth">Включите Bluetooth</string>
     <string name="quitToast">Для выхода нажмите НАЗАД ещё один раз</string>
+    <string name="refresh">ОБНОВИТЬ</string>
     <string name="restart">Перезапуск</string>
     <string name="reverse_button_label">Реверс</string>
     <string name="rus">Русский</string>
