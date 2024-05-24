@@ -1364,12 +1364,9 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
-color colorAccent
-color colorPrimary
-color colorPrimaryDark
-color colorRecieveText
-color colorSendText
-color colorStatusText
+color color_arduino
+color color_ble
+color color_classic
 color design_bottom_navigation_shadow_color
 color design_box_stroke_color
 color design_dark_default_color_background
@@ -2096,8 +2093,6 @@ color switch_thumb_material_dark
 color switch_thumb_material_light
 color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
-color test1
-color test2
 color textColor
 color tooltip_background_dark
 color tooltip_background_light
@@ -3482,7 +3477,6 @@ id progress_horizontal
 id quitButton
 id radio
 id ratio
-id receive_text
 id rectangles
 id recycler_view
 id report_drawn
@@ -3521,8 +3515,6 @@ id seekbar_value
 id select_dialog_listview
 id selected
 id selection_type
-id send_btn
-id send_text
 id shareButton
 id shortcut
 id showCustom
@@ -3770,7 +3762,6 @@ layout device_list_header_classic
 layout device_list_item_classic
 layout expand_button
 layout fragment_ble_devices
-layout fragment_classic_terminal
 layout fragment_controller
 layout image_frame
 layout ime_base_split_test_activity
@@ -4093,7 +4084,6 @@ style Animation_Material3_SideSheetDialog_Left
 style Animation_Material3_SideSheetDialog_Right
 style Animation_MaterialComponents_BottomSheetDialog
 style AppTheme
-style AppTheme2
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog

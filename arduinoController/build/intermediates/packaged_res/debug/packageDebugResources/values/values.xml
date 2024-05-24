@@ -13,15 +13,10 @@
     <color name="accentColor">#39CFC1</color>
     <color name="backgroundDark">#1B1B1B</color>
     <color name="backgroundLight">#938F87</color>
-    <color name="colorAccent">#ff6e40</color>
-    <color name="colorPrimary">#d84315</color>
-    <color name="colorPrimaryDark">#bf360c</color>
-    <color name="colorRecieveText">#00FF00</color>
-    <color name="colorSendText">#82CAFF</color>
-    <color name="colorStatusText">#FFDB58</color>
+    <color name="color_arduino">#11B6BF</color>
+    <color name="color_ble">#B4CF18</color>
+    <color name="color_classic">#1EA4FF</color>
     <color name="ic_launcher_background">#2C2C2C</color>
-    <color name="test1">#1EA4FF</color>
-    <color name="test2">#B4CF18</color>
     <color name="textColor">#AFAFAF</color>
     <string name="app_name">Universal Bluetooth Controller</string>
     <string name="app_name_short">UBC</string>
@@ -46,11 +41,11 @@
     <string name="filterNamesLabel">Show only HM and HC</string>
     <string name="helpButtonLabel">Help</string>
     <string name="helpText">
-        1) First, we recommend to read description of this app in <font color="#39CFC1">Google Play</font>:\n
+        1) First, we recommend to read description of this app in <font color="#ff6e40">Google Play</font>:\n
         https://play.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n
-        2) Be sure You uploaded the latest version of <font color="#39CFC1">Arduino Code</font> to your Arduino device after app update:\n
+        2) Be sure You uploaded the latest version of <font color="#ff6e40">Arduino Code</font> to your Arduino device after app update:\n
         https://github.com/shikhli/Bluetooth-Car-Remote-Arduino-Code\n\n
-        3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  To connect to BLE type Bluetooth devices, your Android device must have both Bluetooth and Location enabled. This app does not use or collect any geolocation data.</string>
+        3) <font color="#ff6e40">Bluetooth Low Energy (BLE)</font>:  To connect to BLE type Bluetooth devices, your Android device must have both Bluetooth and Location enabled. This app does not use or collect any geolocation data.</string>
     <string name="initializing">Getting ready…</string>
     <string name="lang_title">Language</string>
     <string name="led">LED\nBoard</string>
@@ -77,7 +72,7 @@
     <string name="tankMode">Tank\nMode</string>
     <string name="unnamed">- Unnamed device -</string>
     <string name="use_scan_to_refresh_devices">- Press SCAN -</string>
-    <string name="ver_info">"App version:   "</string>
+    <string name="ver_info">"Version:   "</string>
     <string name="waitText">Please wait…</string>
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:statusBarColor">@color/backgroundDark</item>
@@ -91,11 +86,6 @@
         <item name="backgroundStacked">#373737</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:forceDarkAllowed" ns1:targetApi="q">false</item>
-    </style>
-    <style name="AppTheme2" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="CustomTextStyle">
         <item name="android:fontFamily">@font/comfortaa_font_resource</item>

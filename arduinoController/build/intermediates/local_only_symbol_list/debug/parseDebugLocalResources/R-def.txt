@@ -5,15 +5,10 @@ array newline_values
 color accentColor
 color backgroundDark
 color backgroundLight
-color colorAccent
-color colorPrimary
-color colorPrimaryDark
-color colorRecieveText
-color colorSendText
-color colorStatusText
+color color_arduino
+color color_ble
+color color_classic
 color ic_launcher_background
-color test1
-color test2
 color textColor
 drawable bg_repeat
 drawable bg_src
@@ -66,11 +61,8 @@ id led_switch
 id loc_settings
 id mainMenuContainer
 id quitButton
-id receive_text
 id restartButton
 id reverse_switch
-id send_btn
-id send_text
 id shareButton
 id sliderLeft
 id sliderRight
@@ -86,7 +78,6 @@ layout device_list_ble
 layout device_list_header_classic
 layout device_list_item_classic
 layout fragment_ble_devices
-layout fragment_classic_terminal
 layout fragment_controller
 menu menu_devices_ble
 menu menu_devices_classic
@@ -144,5 +135,4 @@ string use_scan_to_refresh_devices
 string ver_info
 string waitText
 style AppTheme
-style AppTheme2
 style CustomTextStyle

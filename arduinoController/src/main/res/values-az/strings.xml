@@ -22,11 +22,11 @@
 
 
     <string name="helpText">
-        1) İlk öncə, tətbiqin <font color="#39CFC1">Google Play</font>-dəki təsvirini oxumaq tövsiyə edilir:\n
+        1) İlk öncə, tətbiqin <font color="#ff6e40">Google Play</font>-dəki təsvirini oxumaq tövsiyə edilir:\n
         https://play.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n
-        2) Tətbiq yeniləndikdə əmin olun ki Arduino cihazınıza ən sonuncu versiya <font color="#39CFC1">Arduino Kodu</font> yüklənilib:\n
+        2) Tətbiq yeniləndikdə əmin olun ki Arduino cihazınıza ən sonuncu versiya <font color="#ff6e40">Arduino Kodu</font> yüklənilib:\n
         https://github.com/shikhli/Bluetooth-Car-Remote-Arduino-Code\n\n
-        3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  BLE tipli Bluetooth cihazlara qoşulmaq üçün Android cihazınızda  həm Bluetooth, həm də Məkan aktiv olmalıdır. Bu tətbiq məkan barədə hər hansı məlumat istifadə etmir və toplamır.</string>
+        3) <font color="#ff6e40">Bluetooth Low Energy (BLE)</font>:  BLE tipli Bluetooth cihazlara qoşulmaq üçün Android cihazınızda  həm Bluetooth, həm də Məkan aktiv olmalıdır. Bu tətbiq məkan barədə hər hansı məlumat istifadə etmir və toplamır.</string>
 
     <string name="bluetooth_le_label"><b><font color= '#B4CF18'>Bluetooth Low Energy (BLE)</font></b>\n(HM-10 və s.)</string>
     <string name="bluetooth_classic_label"><b><font color= '#1EA4FF'>Bluetooth Klassic</font></b>\n(HC-05, HC-06 və s.)</string>
@@ -53,7 +53,7 @@
     <string name="conn_status">"Qoşulub:   "</string>
     <string name="quitToast">Çıxış üçün GERİ düyməsinə bir daha basın</string>
     <string name="reverse_button_label">Revers</string>
-    <string name="ver_info">"Tətbiqin versiyası:   "</string>
+    <string name="ver_info">"Versiya:   "</string>
     <string name="restart">Bağlayıb-aç</string>
     <string name="close">BAĞLAMAQ</string>
     <string name="lang_title">Dil seçimi</string>

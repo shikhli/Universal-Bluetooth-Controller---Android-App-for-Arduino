@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,16 +55,38 @@ public class FragmentDevicesClassic extends ListFragment {
         listAdapter = new ArrayAdapter<>(requireActivity(), 0, listItems) {
             @NonNull
             @Override
-            public View getView(int position, View view, @NonNull ViewGroup parent) {
+            public View getView(int position, View devicesFragment, @NonNull ViewGroup parent) {
                 BluetoothDevice device = listItems.get(position);
-                if (view == null)
-                    view = requireActivity().getLayoutInflater().inflate(R.layout.device_list_item_classic, parent, false);
-                TextView text1 = view.findViewById(R.id.text1);
-                TextView text2 = view.findViewById(R.id.text2);
+                if (devicesFragment == null)
+                    devicesFragment = requireActivity().getLayoutInflater().inflate(R.layout.device_list_item_classic, parent, false);
+                TextView text1 = devicesFragment.findViewById(R.id.text1);
+                TextView text2 = devicesFragment.findViewById(R.id.text2);
                 @SuppressLint("MissingPermission") String deviceName = device.getName();
                 text1.setText(deviceName);
-                text2.setText(device.getAddress());
-                return view;
+
+                String adrs = device.getAddress();
+                SpannableString partOne = new SpannableString(adrs.substring(0, adrs.length() - 5));
+                partOne.setSpan(
+                        new ForegroundColorSpan(getResources().getColor(R.color.textColor)),0,
+                        partOne.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+                text2.setText(partOne);
+
+                SpannableString partTwo = new SpannableString(" " +
+                        adrs.substring(adrs.length() - 5, adrs.length()));
+                partTwo.setSpan(
+                        new ForegroundColorSpan(getResources().getColor(R.color.color_classic)), 0,
+                        partTwo.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+                partTwo.setSpan(
+                        new StyleSpan(android.graphics.Typeface.BOLD), 0,
+                        partTwo.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+                text2.append(partTwo);
+                return devicesFragment;
             }
         };
         requestBluetoothPermissionLauncherForRefresh = registerForActivityResult(

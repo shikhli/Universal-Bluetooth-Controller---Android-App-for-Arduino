@@ -573,6 +573,7 @@ class FragmentController : Fragment(), ServiceConnection,
         }
     }
 
+
     private fun send(character: Char) {
         Log.e("TAG", "connected = $connected")
         if (connected != Connected.True) return

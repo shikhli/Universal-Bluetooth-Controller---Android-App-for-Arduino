@@ -114,9 +114,11 @@ class FragmentDevicesBLE : ListFragment() {
                     text2.text = partOne
 
                     val partTwo =
-                        SpannableString(" " + adrs.substring(adrs.length - 5, adrs.length))
+                        SpannableString(" " +
+                                adrs.substring(adrs.length - 5,
+                                    adrs.length))
                     partTwo.setSpan(
-                        ForegroundColorSpan(resources.getColor(R.color.accentColor)),
+                        ForegroundColorSpan(resources.getColor(R.color.color_ble)),
                         0,
                         partTwo.length,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

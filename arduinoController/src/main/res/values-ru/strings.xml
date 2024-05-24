@@ -24,11 +24,11 @@
 
 
     <string name="helpText">
-        1) Сначало, советуем прочесть описание приложения в <font color="#39CFC1">Google Play</font>:\n
+        1) Сначало, советуем прочесть описание приложения в <font color="#ff6e40">Google Play</font>:\n
         https://play.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n
-        2) Если приложение обновился, убедитесь что на вашем Ардуино устройсте последняя версия <font color="#39CFC1">кода для Ардуино</font>:\n
+        2) Если приложение обновился, убедитесь что на вашем Ардуино устройсте последняя версия <font color="#ff6e40">кода для Ардуино</font>:\n
         https://github.com/shikhli/Bluetooth-Car-Remote-Arduino-Code\n\n
-        3) <font color="#39CFC1">Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. Данное приложение не использует и не собирает какие либо данные о местоположении.</string>
+        3) <font color="#ff6e40">Bluetooth Low Energy (BLE)</font>:  Для подключения к устройствам Bluetooth типа BLE, на вашем устройстве Android должны быть включены Bluetooth и Местоположения. Данное приложение не использует и не собирает какие либо данные о местоположении.</string>
 
 
 
@@ -57,7 +57,7 @@
     <string name="conn_lost">Соединение потеряно:</string>
     <string name="conn_status">"Подключён к:   "</string>
     <string name="quitToast">Для выхода нажмите НАЗАД ещё один раз</string>
-    <string name="ver_info">"Версия приложения:   "</string>
+    <string name="ver_info">"Версия:   "</string>
     <string name="restart">Перезапуск</string>
     <string name="close">ЗАКРЫТЬ</string>
     <string name="lang_title">Язык приложения</string>

@@ -5,18 +5,7 @@
     <color name="accentColor">#39CFC1</color>
     <color name="textColor">#AFAFAF</color>
 
-    <color name="test1">#1EA4FF</color>
-    <color name="test2">#B4CF18</color>
-
-
-
-
-    <color name="colorPrimary">#d84315</color>
-    <color name="colorPrimaryDark">#bf360c</color>
-    <color name="colorAccent">#ff6e40</color>
-
-    <color name="colorRecieveText">#00FF00</color>
-    <color name="colorSendText">#82CAFF</color>
-    <color name="colorStatusText">#FFDB58</color>
-
+    <color name="color_ble">#B4CF18</color>
+    <color name="color_classic">#1EA4FF</color>
+    <color name="color_arduino">#11B6BF</color>
 </resources>
