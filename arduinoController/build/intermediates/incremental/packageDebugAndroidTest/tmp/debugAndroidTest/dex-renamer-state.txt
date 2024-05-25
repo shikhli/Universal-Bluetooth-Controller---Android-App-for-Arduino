@@ -1,7 +1,0 @@
-#Wed May 22 14:32:14 AZT 2024
-base.0=D\:\\_DEV_\\ArduinoController\\arduinoController\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
-base.1=D\:\\_DEV_\\ArduinoController\\arduinoController\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\6\\classes.dex
-path.0=0/classes.dex
-path.1=6/classes.dex
-renamed.0=classes.dex
-renamed.1=classes2.dex

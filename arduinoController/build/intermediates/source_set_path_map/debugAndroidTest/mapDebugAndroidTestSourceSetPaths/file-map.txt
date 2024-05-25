@@ -1,4 +1,0 @@
-zakirshikhli.ble_app.test.arduinoController-androidTest-0 D:\_DEV_\ArduinoController\arduinoController\build\generated\res\resValues\androidTest\debug
-zakirshikhli.ble_app.test.arduinoController-mergeDebugAndroidTestResources-1 D:\_DEV_\ArduinoController\arduinoController\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-zakirshikhli.ble_app.test.arduinoController-mergeDebugAndroidTestResources-2 D:\_DEV_\ArduinoController\arduinoController\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-zakirshikhli.ble_app.test.arduinoController-debugAndroidTest-3 D:\_DEV_\ArduinoController\arduinoController\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
