@@ -1,6 +1,7 @@
 MIT License
 
-Copyright (c) 2019 Kai Morich
+Copyright (c) 2019 Kai Morich (source codes base version)
+Copyright (c) 2024 Zakir Shikhli (merged, enhanced, converted to kotlin, adapted to new app etc.)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
