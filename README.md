@@ -10,5 +10,5 @@ and
 https://github.com/kai-morich/SimpleBluetoothLeTerminal
 
 **Thanks to Kai Morich 🙏**
-https://github.com/kai-morich Kai-morich
+https://github.com/kai-morich
 https://www.kai-morich.de
