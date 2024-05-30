@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bt_refresh_cl"
+        android:title="@string/refresh"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/bt_settings_cl"
+        app:showAsAction="ifRoom"
+        android:title="@string/bluetooth_settings" />
+    <item
+        android:id="@+id/filterNames_cl"
+        android:checkable="true"
+        android:title="@string/filterNamesLabel" />
+
+</menu>

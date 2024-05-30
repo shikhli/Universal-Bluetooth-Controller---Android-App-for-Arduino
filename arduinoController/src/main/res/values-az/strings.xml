@@ -1,0 +1,68 @@
+<resources>
+
+    <string name="app_name_short">UBK</string>
+    <string name="app_name">Universal Bluetooth Kontroller</string>
+
+
+    <!--    UI Elements    -->
+    <string name="devices">Cihazlar</string>
+    <string name="bluetooth_permission_title">Bluetooth icazə</string>
+    <string name="bluetooth_permission_grant">Tətbiq üçün Bluetooth icazəsi tələb olunur. Növbəti pəncərədə onu təqdim edin.</string>
+    <string name="bluetooth_permission_denied">Bluetooth icazə birdəfəlik qadağan olunub. İcazəni tətbiqin sistemdəki tənzimləmələrindən bərpa etmək mümkündür.</string>
+    <string name="location_permission_title">Məkan icazəsi</string>
+    <string name="location_permission_grant">Bu tətbiq məkan məlumatlarından istifadə etmir. Amma Blueeooth LE cihazlarına qoşulmaq üçün bu icazənin olması şərtdir. Növbəti pəncərədə icazəni təqdim edə bilərsiniz.</string>
+    <string name="location_permission_denied">Məkan icazəsi verilmədiyi üçün, bu tətbiq Bluetooth LE cihazlarını axtara bilmir.</string>
+    <string name="pairing_request">BAĞLANTI göndərildi\n-> Bağlantı üçün tələb olunan addımları edin. Yenidən qoşulun.</string>
+
+    <string name="led">LED\nLövhə</string>
+    <string name="max_speed">Tam\nSürət</string>
+    <string name="tankMode">Tank\nRejimi</string>
+    <string name="helpButtonLabel">Kömək</string>
+    <string name="waitText">Gözləyin…</string>
+
+
+    <string name="helpText">1) İlk öncə, tətbiqin <font color="#ff6e40">Google Play</font>-dəki təsvirini oxumaq tövsiyə edilir:\nplay.google.com/store/apps/details?id=zakirshikhli.ble_app\n\n2) Tətbiq yeniləndikdə əmin olun ki Arduino cihazınıza\nən sonuncu versiya <font color="#ff6e40">Arduino Kodu</font> yüklənilib:\ngithub.com/shikhli/Bluetooth-Car-Remote-Arduino-Code</string>
+
+    <string name="bluetooth_le_label"><b><font color= '#B4CF18'>Bluetooth Low Energy (BLE)</font></b>\n(HM-10 və s.)</string>
+    <string name="bluetooth_classic_label"><b><font color= '#1EA4FF'>Bluetooth Klassic</font></b>\n(HC-05, HC-06 və s.)</string>
+    <string name="filterNamesLabel">Yalnız HM və HC</string>
+
+
+    <string name="please_enable_bluetooth">Bluetooth-u aktivləşdirin</string>
+    <string name="cannot_connect_to_pd">Bağlanmış cihaza qoşulmaq alınmadı</string>
+    <string name="no_connection">Qoşulma mövcud deyil</string>
+    <string name="connected_toast">Uğurlu Qoşulma</string>
+    <string name="could_not_connect">Cihaza qoşulmaq alınmadı</string>
+    <string name="bluetooth_is_disabled">- Bluetooth sönülüdür -</string>
+    <string name="bluetooth_le_not_supported">- Bluetooth LE dəstəklənmir -</string>
+    <string name="use_scan_to_refresh_devices">- AXTAR düyməsindən istifadə edin -</string>
+    <string name="scanning">- Axtarılır… -</string>
+    <string name="nothingFound">- Heç bir cihaz tapılmadı -</string>
+    <string name="initializing">Hazırlanır…</string>
+    <string name="unnamed">- Adsız cihaz -</string>
+    <string name="scan">AXTAR</string>
+    <string name="stop">DAYANDIR</string>
+    <string name="bluetooth_settings">Bluetooth tənzimləmələri</string>
+    <string name="location_settings">Məkan tənzimləmələri</string>
+    <string name="connection_lost">Qoşulma itdi</string>
+    <string name="conn_status">"Qoşulub:   "</string>
+    <string name="quitToast">Çıxış üçün GERİ düyməsinə bir daha basın</string>
+    <string name="reverse_button_label">Revers</string>
+    <string name="ver_info">"Versiya:   "</string>
+    <string name="restart">Bağlayıb-aç</string>
+    <string name="close">BAĞLAMAQ</string>
+    <string name="lang_title">Dil seçimi</string>
+    <string name="aze">Azərbaycanca</string>
+    <string name="eng">English</string>
+    <string name="rus">Русский</string>
+    <string name="confirm">TƏSDİQ ET</string>
+
+    // Sharing
+    <string name="share_message">\"Universal Bluetooth Kontroller\" tətbiqinin Google Play yükləmə keçidi:\n\nhttps://play.google.com/store/apps/details?id=zakirshikhli.ble_app</string>
+    <string name="share_via">Paylaşmaq üçün vasitə seçin</string>
+    <string name="refresh">YENİLƏMƏK</string>
+    <string name="permission_missing">İcazə verilməyib, yaxud YENİLƏMƏK düyməsinə basmaq lazımdır</string>
+    <string name="location_is_disabled">- Məkan təyini SÖNÜLÜDÜR -</string>
+    <string name="bt_settings_hint">Cihaz əlavə etmək/pozmaq üçün\n\"BLUETOOTH TƏNZİMLƏMƏLƏRİ\" düyməsindən istifadə edin</string>
+
+</resources>
